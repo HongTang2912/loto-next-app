@@ -183,7 +183,7 @@ export default function PlayersList({ socket, room_id, player }) {
                     disabled={end || callNumberClick}
                     variant="contained"
                     className={`bg-blue-500 ${uniqueObjects([...playersList])
-                    [0]?.player == player && isStarted
+                    [0]?.player == player
                         ? "block" : "hidden"} 
                             `}
                     onClick={() => { callANumber() }}
