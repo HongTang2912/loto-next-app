@@ -9,7 +9,7 @@ import PlayersList from './PlayersList/playersList'
 import Cookies from 'universal-cookie'
 
 const cookies = new Cookies()
-const socket = io.connect("http://localhost:3001")
+const socket = io.connect("https://loto-backend.herokuapp.com/")
 export default function Inputname() {
 
     const [isResigned, setResigned] = React.useState(false)
