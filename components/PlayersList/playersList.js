@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef} from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom'
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -17,11 +17,13 @@ export default function playersList({ socket, room_id, player }) {
 
     const [winner, setWinner] = useState("")
     const [isWon, setWon] = useState(false)
+    const [end, setEnd] = useState(false)
     const [newNumber, setNewNumber] = useState(0)
     const [playersList, setPlayersList] = useState([])
     const [tables, setTables] = useState([])
     const [isStarted, setStartGame] = useState(false)
     const [count, setCount] = useState(0)
+    const [callNumberClick, setCallNumberClick] = useState(false)
 
 
     const LottoTable = useRef()
@@ -54,6 +56,7 @@ export default function playersList({ socket, room_id, player }) {
 
         socket.on("the-winner", (list, room, winner) => {
             setWon(true)
+            setEnd(true)
             setWinner(winner)
         })
 
@@ -95,12 +98,18 @@ export default function playersList({ socket, room_id, player }) {
         )
         setCount(count + 1)
 
-        if (isWon) endGameEvent()
+        // setCallNumberClick(true)
+
+        // setTimeout(() => {
+        //     setCallNumberClick(false)
+        // }, 2000)
 
     }
 
     return (
         <>
+
+
             <div className={`${!isStarted ? 'block' : 'hidden'}`}>
                 <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} id="list">
                     <ListItem>
@@ -144,40 +153,49 @@ export default function playersList({ socket, room_id, player }) {
             </div>
 
 
-            <div className="lotto-table flex flex-col items-center" ref={LottoTable}>
-                <div className={`${isStarted ? 'block' : 'hidden'} text-5xl pixel-font text-green-500`}>{newNumber}</div>
-                {
-                    tables[0]?.map((items, index) => {
-                        return (
-                            <div className="flex justify-between items-center" key={index}>
-                                {items.map((subItems, sIndex) => {
-                                    return <div key={sIndex} className="w-20 h-20 pt-4 text-5xl text-center" id={`sub-table-${subItems}`}> {subItems} </div>;
-                                })}
-                            </div>
-                        );
-                    })
-                }
-                {console.log(tables[0])}
+            <div className="lotto-table flex flex-col items-center gap-4" ref={LottoTable}>
+                <div className={`${isStarted ? 'block' : 'hidden'} text-8xl pixel-font text-green-500`}>{newNumber}</div>
+                
+                <div className={`relative flex justify-center`}>
+                    <div className={`absolute top-0 opacity-80 h-full flex  items-center`}>
+
+                        <Dialog
+                            open={isWon}
+                            setOpen={setWon}
+                            title={"Bingooooo!"}
+                            body={`The winner is ${winner}`}
+                        />
+                    </div>
+                    <div>
+
+                        {
+                            tables[0]?.map((items, index) => {
+                                return (
+                                    <div className="flex justify-between items-center" key={index}>
+                                        {items.map((subItems, sIndex) => {
+                                            return <div key={sIndex} className="w-20 h-20 pt-4 text-5xl text-center" id={`sub-table-${subItems}`}> {subItems} </div>;
+                                        })}
+                                    </div>
+                                );
+                            })
+                        }
+                    </div>
+                </div>
+
+                <Button
+                    disabled={end || callNumberClick}
+                    variant="contained"
+                    className={`bg-blue-500 ${uniqueObjects([...playersList])
+                    [0]?.player == player && isStarted
+                        ? "block" : "hidden"} 
+                            `}
+                    onClick={() => { callANumber() }}
+                >
+
+                    <a>{"Call Number"}</a>
+
+                </Button>
             </div>
-            <Button
-                disabled={isWon}
-                variant="contained"
-                className={`bg-blue-500 ${uniqueObjects([...playersList])
-                [0]?.player == player && isStarted
-                    ? "block" : "hidden"} 
-                        `}
-                onClick={() => { callANumber() }}
-            >
-
-                <a>{isWon ? "Leave room" : "Call Number"}</a>
-
-            </Button>
-            <Dialog
-                open={isWon}
-                setOpen={setWon}
-                title={"Bingooooo!"}
-                body={`The winner is ${winner}`}
-            />
 
         </>
     )
