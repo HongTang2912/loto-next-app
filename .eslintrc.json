@@ -1,5 +1,6 @@
 // Your ESLint configuration
 {
+  "parser": "babel-eslint",
   "plugins": [
     // ...
     "react-hooks"
