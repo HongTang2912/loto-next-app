@@ -139,7 +139,9 @@ export default function PlayersList({ socket, room_id, player }) {
                     [0]?.player == player
                         ? "block" : "hidden"} 
                         `}
-                    disabled={uniqueObjects([...playersList])?.length <= 1}
+                    disabled={uniqueObjects([...playersList])?.length <= 1 || uniqueObjects([...playersList])
+                    [0]?.player == player
+                        ? "block" : "hidden"}
                     onClick={() => { startTheGame() }}
                 >
 
