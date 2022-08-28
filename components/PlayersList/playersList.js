@@ -22,7 +22,6 @@ export default function playerList({ socket, room_id, player }) {
     const [tables, setTables] = React.useState([])
     const [isStarted, setStartGame] = React.useState(false)
     const [count, setCount] = React.useState(0)
-    const [calledNumbersList, setCalledNumbersList] = React.useState([])
 
 
     const LottoTable = React.useRef()
@@ -150,9 +149,9 @@ export default function playerList({ socket, room_id, player }) {
                 {
                     tables[0]?.map((items, index) => {
                         return (
-                            <div className="flex justify-between items-center">
+                            <div className="flex justify-between items-center" key={index}>
                                 {items.map((subItems, sIndex) => {
-                                    return <div className="w-20 h-20 pt-4 text-5xl text-center" id={`sub-table-${subItems}`}> {subItems} </div>;
+                                    return <div key={sIndex} className="w-20 h-20 pt-4 text-5xl text-center" id={`sub-table-${subItems}`}> {subItems} </div>;
                                 })}
                             </div>
                         );
