@@ -9,7 +9,7 @@ import PlayersList from './PlayersList/playersList'
 import Cookies from 'universal-cookie'
 
 
-const socket = io.connect("https://loto-backend.herokuapp.com")
+const socket = io.connect("http://localhost:3001/")
 
 export default function Inputname() {
 

@@ -96,11 +96,11 @@ export default function playersList({ socket, room_id, player }) {
         )
         setCount(count + 1)
 
-        // setCallNumberClick(true)
+        setCallNumberClick(true)
 
-        // setTimeout(() => {
-        //     setCallNumberClick(false)
-        // }, 2000)
+        setTimeout(() => {
+            setCallNumberClick(false)
+        }, 1500)
 
     }
 
