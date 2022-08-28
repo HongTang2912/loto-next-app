@@ -23,8 +23,8 @@ export default function AlertDialogSlide({ open, setOpen, title, body }) {
             {
                 open &&
                 (
-                    <Stack sx={{ width: '100%' }} 
-                        spacing={2} 
+                    <Stack sx={{ width: '100%' }}
+                        spacing={2}
                     >
 
                         <Alert severity="success" className={`text-xl font-bold`}>{body}</Alert>

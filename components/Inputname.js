@@ -8,7 +8,9 @@ import io from 'socket.io-client'
 import PlayersList from './PlayersList/playersList'
 import Cookies from 'universal-cookie'
 
+
 const socket = io.connect("http://localhost:3001")
+
 
 export default function Inputname() {
 
