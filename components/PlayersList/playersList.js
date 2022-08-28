@@ -180,7 +180,8 @@ export default function PlayersList({ socket, room_id, player }) {
                 </div>
 
                 <Button
-                    disabled={end || callNumberClick || !isStarted}
+                    disabled={end || callNumberClick || !isStarted || uniqueObjects([...playersList])
+                    [0]?.player != player}
                     variant="contained"
                     className={`bg-blue-500 ${uniqueObjects([...playersList])
                     [0]?.player == player
