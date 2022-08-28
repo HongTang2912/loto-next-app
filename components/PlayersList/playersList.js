@@ -32,8 +32,6 @@ export default function playersList({ socket, room_id, player }) {
 
     useEffect(() => {
 
-
-
         socket.on('new-user', (user) => {
             setPlayersList(user)
         })
@@ -108,8 +106,6 @@ export default function playersList({ socket, room_id, player }) {
 
     return (
         <>
-
-
             <div className={`${!isStarted ? 'block' : 'hidden'}`}>
                 <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} id="list">
                     <ListItem>

@@ -73,15 +73,17 @@ export default function Inputname() {
                 </Button>
 
             </div>
-            <div className={isResigned ? 'block' : 'hidden'}>
-
+            {
+                isResigned && 
                 <PlayersList
 
                     socket={socket}
                     player={playerName.current?.childNodes[1].childNodes[0].value}
                     room_id={roomID.current?.childNodes[1].childNodes[0].value}
                 />
-            </div>
+            }
+
+            
         </>
     )
 }
