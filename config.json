@@ -1,0 +1,8 @@
+{
+  "NEO4J_DB_CONFIG": {
+    "PATH": "neo4j+s://c7aa0c40.databases.neo4j.io",
+    "USERNAME": "neo4j",
+    "PASSWORD": "iw8x1aql9Rsrwmu2v6OZUBey_7DUQ604WmWv1DHiD1I",
+    "AURA_INSTANCENAME": "Lottto"
+  }
+}
