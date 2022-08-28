@@ -1,8 +1,13 @@
 // Your ESLint configuration
 {
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
+  "extends": [
+    "next",
+    "plugin:react-hooks/recommended"
+  ],
   "plugins": [
     // ...
+    
     "react-hooks"
   ],
   "rules": {
@@ -10,5 +15,9 @@
 
     "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
     "react-hooks/exhaustive-deps": "warn" // Checks effect dependencies
-  }
+  },
+   "parserOptions": {
+
+     "requireConfigFile": false
+   }
 }

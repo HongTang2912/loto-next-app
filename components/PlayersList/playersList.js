@@ -13,7 +13,7 @@ import Dialog from '../Dialog'
 const cookies = new Cookies()
 
 
-export default function playersList({ socket, room_id, player }) {
+export default function PlayersList({ socket, room_id, player }) {
 
     const [winner, setWinner] = useState("")
     const [isWon, setWon] = useState(false)
