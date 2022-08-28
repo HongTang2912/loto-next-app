@@ -1,4 +1,4 @@
-import * as React from 'react';
+import {useState, useEffect, useRef} from 'react';
 import ReactDOM from 'react-dom'
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -13,22 +13,22 @@ import Dialog from '../Dialog'
 const cookies = new Cookies()
 
 
-export default function playerList({ socket, room_id, player }) {
+export default function playersList({ socket, room_id, player }) {
 
-    const [winner, setWinner] = React.useState("")
-    const [isWon, setWon] = React.useState(false)
-    const [newNumber, setNewNumber] = React.useState(0)
-    const [playersList, setPlayersList] = React.useState([])
-    const [tables, setTables] = React.useState([])
-    const [isStarted, setStartGame] = React.useState(false)
-    const [count, setCount] = React.useState(0)
+    const [winner, setWinner] = useState("")
+    const [isWon, setWon] = useState(false)
+    const [newNumber, setNewNumber] = useState(0)
+    const [playersList, setPlayersList] = useState([])
+    const [tables, setTables] = useState([])
+    const [isStarted, setStartGame] = useState(false)
+    const [count, setCount] = useState(0)
 
 
-    const LottoTable = React.useRef()
+    const LottoTable = useRef()
 
     const uniqueObjects = (arr) => [...new Map(arr.map(item => [item.player, item])).values()]
 
-    React.useEffect(() => {
+    useEffect(() => {
 
 
 
@@ -45,7 +45,7 @@ export default function playerList({ socket, room_id, player }) {
         socket.on("get-number", (number, count, p, room) => {
             setNewNumber(number[number.length - 1])
             if (fillBingoNumber(number) == 5) {
-                
+
                 socket.emit('end-game', number, room)
 
             }
@@ -95,7 +95,7 @@ export default function playerList({ socket, room_id, player }) {
         )
         setCount(count + 1)
 
-        if(isWon) endGameEvent()
+        if (isWon) endGameEvent()
 
     }
 
@@ -178,7 +178,7 @@ export default function playerList({ socket, room_id, player }) {
                 title={"Bingooooo!"}
                 body={`The winner is ${winner}`}
             />
-           
+
         </>
     )
 }
