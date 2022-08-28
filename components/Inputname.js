@@ -23,7 +23,7 @@ export default function Inputname() {
             player: playerName.current.childNodes[1].childNodes[0].value,
             room_id: roomID.current.childNodes[1].childNodes[0].value
         })
-
+        setResigned(!isResigned)
     }
 
     const handleInputField = () => {
@@ -31,7 +31,7 @@ export default function Inputname() {
             playerName?.current?.childNodes[1].childNodes[0].value &&
             roomID?.current?.childNodes[1].childNodes[0].value
         )
-        setResigned(!isResigned)
+
     }
 
     const joinRoom = () => {
