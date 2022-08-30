@@ -41,9 +41,9 @@ export default function Inputname() {
     }
 
     return (
-        <div className={`px-3`}>
+        <div className={``}>
             <h1 className={"pixel-font text-center text-5xl"}>Lottto</h1>
-            <div className={`flex flex-col gap-3 items-center ${!isResigned ? 'block' : 'hidden'}`}>
+            <div className={`flex flex-col gap-3 items-center justify-center px-3 ${!isResigned ? 'block' : 'hidden'}`}>
 
                 <TextField
                     required
