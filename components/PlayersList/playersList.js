@@ -174,7 +174,7 @@ export default function PlayersList({ socket, room_id, player }) {
                                 return (
                                     <div className="flex justify-between items-center" key={index}>
                                         {items.map((subItems, sIndex) => {
-                                            return <div key={sIndex} className="w-20 h-20 pt-3 text-4xl text-center" id={`sub-table-${subItems}`}> {subItems} </div>;
+                                            return <div key={sIndex} className="w-20 h-20 p-3 text-4xl text-center" id={`sub-table-${subItems}`}> {subItems} </div>;
                                         })}
                                     </div>
                                 );
