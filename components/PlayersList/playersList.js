@@ -103,11 +103,11 @@ export default function PlayersList({ socket, room_id, player, color }) {
         )
         setCount(count + 1)
 
-        // setCallNumberClick(true)
+        setCallNumberClick(true)
 
-        // setTimeout(() => {
-        //     setCallNumberClick(false)
-        // }, 1500)
+        setTimeout(() => {
+            setCallNumberClick(false)
+        }, 1500)
 
     }
 
@@ -177,7 +177,7 @@ export default function PlayersList({ socket, room_id, player, color }) {
                         />
                     </div>
                     <div 
-                        className={`border-4 rounded-lg p-3`}
+                        className={`p-3`}
                     >
 
                         {
