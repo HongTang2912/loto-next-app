@@ -177,7 +177,6 @@ export default function PlayersList({ socket, room_id, player, color }) {
                         />
                     </div>
                     <div 
-                        style={{borderColor: color}}
                         className={`border-4 rounded-lg p-3`}
                     >
 
