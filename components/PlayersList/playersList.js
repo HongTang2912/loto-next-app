@@ -69,7 +69,7 @@ export default function PlayersList({ socket, room_id, player }) {
 
             element.style.backgroundColor = "#ff23ff"
             element.style.color = "#fff"
-            element.style.fontWeight = "600"
+            element.style.fontWeight = "700"
 
 
             element.id = "bingo"
@@ -174,7 +174,7 @@ export default function PlayersList({ socket, room_id, player }) {
                                 return (
                                     <div className="flex justify-between items-center" key={index}>
                                         {items.map((subItems, sIndex) => {
-                                            return <div key={sIndex} className="w-20 h-20 pt-4 text-3xl text-center" id={`sub-table-${subItems}`}> {subItems} </div>;
+                                            return <div key={sIndex} className="w-20 h-20 pt-3 text-4xl text-center" id={`sub-table-${subItems}`}> {subItems} </div>;
                                         })}
                                     </div>
                                 );
