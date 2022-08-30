@@ -9,7 +9,7 @@ import PlayersList from './PlayersList/playersList'
 import Cookies from 'universal-cookie'
 
 
-const socket = io.connect("https://loto-backend.herokuapp.com")
+const socket = io.connect("http://localhost:3001")
 
 export default function Inputname() {
 
@@ -17,6 +17,20 @@ export default function Inputname() {
     const [isResigned, setResigned] = React.useState(false)
     const playerName = React.useRef();
     const roomID = React.useRef();
+
+    const colors = [
+        "#e97b40",
+        "#e9cbff",
+        "#99ccdd",
+        "#a4daef",
+        "#aaddee",
+        "#009489",
+        '#fdc8c0',
+        '#8de8e8',
+        '#ac92c0',
+        "#ab92b3",
+    ]
+
 
     const handleClickGo = () => {
         socket.emit('get-user', {
@@ -41,7 +55,7 @@ export default function Inputname() {
     }
 
     return (
-        <div className={``}>
+        <div className={`w-max`}>
             <h1 className={"pixel-font text-center text-5xl"}>Lottto</h1>
             <div className={`flex flex-col gap-3 items-center justify-center px-3 ${!isResigned ? 'block' : 'hidden'}`}>
 
@@ -80,6 +94,7 @@ export default function Inputname() {
                     socket={socket}
                     player={playerName.current?.childNodes[1].childNodes[0].value}
                     room_id={roomID.current?.childNodes[1].childNodes[0].value}
+                    color = {colors[Math.floor(Math.random() * 9)]}
                 />
             }
 

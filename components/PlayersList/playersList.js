@@ -13,7 +13,7 @@ import Dialog from '../Dialog'
 const cookies = new Cookies()
 
 
-export default function PlayersList({ socket, room_id, player }) {
+export default function PlayersList({ socket, room_id, player, color }) {
 
     const [winner, setWinner] = useState("")
     const [isWon, setWon] = useState(false)
@@ -25,6 +25,8 @@ export default function PlayersList({ socket, room_id, player }) {
     const [count, setCount] = useState(0)
     const [callNumberClick, setCallNumberClick] = useState(false)
 
+   
+
 
     const LottoTable = useRef()
 
@@ -33,7 +35,7 @@ export default function PlayersList({ socket, room_id, player }) {
     useEffect(() => {
 
         socket.on('new-user', (user) => {
-            setPlayersList(user)
+            setPlayersList(prev => [...prev, ...user])
         })
         socket.on('new-game', (game, start) => {
             const newArr = [];
@@ -61,15 +63,16 @@ export default function PlayersList({ socket, room_id, player }) {
 
     }, [socket])
 
+   
+
     const fillBingoNumber = (number) => {
         let lastNumbers = number[number.length - 1]
         let element = LottoTable.current.querySelector(`div div#sub-table-${lastNumbers}`)
 
         if (number.length > 0 && element != null) {
 
-            element.style.backgroundColor = "#ff23ff"
+            element.style.backgroundColor = color
             element.style.color = "#fff"
-            element.style.fontWeight = "700"
 
 
             element.id = "bingo"
@@ -100,11 +103,11 @@ export default function PlayersList({ socket, room_id, player }) {
         )
         setCount(count + 1)
 
-        setCallNumberClick(true)
+        // setCallNumberClick(true)
 
-        setTimeout(() => {
-            setCallNumberClick(false)
-        }, 1500)
+        // setTimeout(() => {
+        //     setCallNumberClick(false)
+        // }, 1500)
 
     }
 
@@ -143,7 +146,8 @@ export default function PlayersList({ socket, room_id, player }) {
                     [0]?.player == player
                         ? "block" : "hidden"} 
                         `}
-                    disabled={uniqueObjects([...playersList])?.length <= 1 || uniqueObjects([...playersList])
+                    disabled={uniqueObjects([...playersList])?.length <= 1 || 
+                        uniqueObjects([...playersList])
                     [0]?.player != player}
                     onClick={() => { startTheGame() }}
                 >
@@ -155,26 +159,39 @@ export default function PlayersList({ socket, room_id, player }) {
 
 
             <div className="lotto-table flex flex-col items-center gap-4" ref={LottoTable}>
-                <div className={`${isStarted ? 'block' : 'hidden'} text-8xl pixel-font text-green-500`}>{newNumber}</div>
+                <div 
+                    className={`${isStarted ? 'block' : 'hidden'} text-8xl pixel-font`}
+                    style={{color: color}}
+                >
+                    {newNumber}
+                </div>
                 
                 <div className={`relative flex justify-center`}>
-                    <div className={`absolute top-0 opacity-80 h-full flex  items-center`}>
+                    <div className={`absolute top-0 opacity-80 h-full flex flex-col justify-center`}>
 
                         <Dialog
                             open={isWon}
                             setOpen={setWon}
                             title={"Bingooooo!"}
-                            body={`The winner is ${winner}`}
+                            body={winner}
                         />
                     </div>
-                    <div>
+                    <div 
+                        style={{borderColor: color}}
+                        className={`border-4 rounded-lg p-3`}
+                    >
 
                         {
                             tables[0]?.map((items, index) => {
                                 return (
                                     <div className="flex justify-between items-center" key={index}>
                                         {items.map((subItems, sIndex) => {
-                                            return <div key={sIndex} className="w-20 h-16 p-3 text-4xl text-center" id={`sub-table-${subItems}`}> {subItems} </div>;
+                                           
+                                            return <div key={sIndex} className="p-3 m-1 text-4xl text-center font-bold rounded-full" id={`sub-table-${subItems}`}> 
+                                                {subItems >= 10 ? subItems : ("0" + subItems)} 
+                                            </div>;
+                                            
+                                               
                                         })}
                                     </div>
                                 );
