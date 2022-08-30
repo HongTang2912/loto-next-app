@@ -41,7 +41,7 @@ export default function Inputname() {
     }
 
     return (
-        <div className={`px-3`}>
+        <div className={`px-3 mx-auto`}>
             <h1 className={"pixel-font text-center text-5xl"}>Lottto</h1>
             <div className={`flex flex-col gap-3 items-center ${!isResigned ? 'block' : 'hidden'}`}>
 
