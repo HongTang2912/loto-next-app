@@ -179,6 +179,12 @@ export default function PlayersList({ socket, room_id, player, color }) {
                     <div 
                         className={`p-3`}
                     >
+                        <div
+                            className={`${isStarted ? 'block' : 'hidden'} text-4xl pixel-font`}
+                            style={{ color: color }}
+                        >
+                            {player}'s lotto
+                        </div>
 
                         {
                             tables[0]?.map((items, index) => {
