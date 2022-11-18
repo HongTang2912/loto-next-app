@@ -83,7 +83,13 @@ export default function Home() {
   const startTheGame = (playersList, room_id, isStarted) => {
     socket.emit("start-game", uniqueObjects(playersList), room_id, isStarted);
   };
-  const callANumber = (setCallNumberClick, setCount, room_id, count, player) => {
+  const callANumber = (
+    setCallNumberClick,
+    setCount,
+    room_id,
+    count,
+    player
+  ) => {
     socket.emit("call-number", room_id, count, player, room_id);
     setCount(count + 1);
 
@@ -91,7 +97,7 @@ export default function Home() {
 
     setTimeout(() => {
       setCallNumberClick(false);
-    }, 0);
+    }, 2000);
   };
 
   const actions = {
@@ -118,18 +124,17 @@ export default function Home() {
           rel="stylesheet"
         />
       </Head>
-      {!isResigned && (
-        <InputName socket={socket} actions={actions.register} colors={colors} />
-      )}
+      {!isResigned && <InputName actions={actions.register} colors={colors} />}
       {isResigned && (
         <PlayersList
           socket={socket}
           player={player.player}
-          room_id={player.roomID}
+          room_id={player.room_id}
           color={colors[Math.floor(Math.random() * 9)]}
           actions={actions.game_play}
         />
       )}
+      {console.log()}
     </div>
   );
 }

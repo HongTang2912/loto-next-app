@@ -10,8 +10,13 @@ import Button from "@mui/material/Button";
 import Cookies from "universal-cookie";
 import Dialog from "../Dialog";
 
-
-export default function PlayersList({ socket, room_id, player, color }) {
+export default function PlayersList({
+  socket,
+  room_id,
+  player,
+  color,
+  actions,
+}) {
   const [winner, setWinner] = useState("");
   const [isWon, setWon] = useState(false);
   const [end, setEnd] = useState(false);
@@ -41,7 +46,8 @@ export default function PlayersList({ socket, room_id, player, color }) {
       setStartGame(start);
     });
     socket.on("get-number", (number, count, p, room) => {
-      setNewNumber(number[number.length - 1]);
+      console.log(number[count]);
+      setNewNumber(number[count]);
       if (fillBingoNumber(number) == 5) {
         socket.emit("end-game", number, room);
       }

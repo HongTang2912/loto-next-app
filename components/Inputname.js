@@ -2,9 +2,10 @@ import * as React from "react";
 
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import PlayersList from "./PlayersList/playersList";
 
-export default function Inputname({ socket, colors, actions }) {
+
+
+export default function Inputname({ colors, actions }) {
   const [filled, setInputField] = React.useState(false);
 
   const playerName = React.useRef();
