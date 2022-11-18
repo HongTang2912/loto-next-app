@@ -1,104 +1,51 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import Link from 'next/link'
-import io from 'socket.io-client'
-import PlayersList from './PlayersList/playersList'
-import Cookies from 'universal-cookie'
+import * as React from "react";
 
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import PlayersList from "./PlayersList/playersList";
 
-const socket = io.connect("https://loto-backend.herokuapp.com")
+export default function Inputname({ socket, colors, actions }) {
+  const [filled, setInputField] = React.useState(false);
 
-export default function Inputname() {
+  const playerName = React.useRef();
+  const roomID = React.useRef();
 
-    const [filled, setInputField] = React.useState(false)
-    const [isResigned, setResigned] = React.useState(false)
-    const playerName = React.useRef();
-    const roomID = React.useRef();
+  return (
+    <div className={`w-max`}>
+      <h1 className={"pixel-font text-center text-5xl"}>Lottto</h1>
+      <div className={`flex flex-col gap-3 items-center justify-center px-3 `}>
+        <TextField
+          required
+          id="outlined-required"
+          label="Input your name"
+          onChange={() => {
+            setInputField(actions.handleInputField(playerName, roomID));
+          }}
+          ref={playerName}
+        />
 
-    const colors = [
-        "#e97b40",
-        "#e9cbff",
-        "#99ccdd",
-        "#a4daef",
-        "#aaddee",
-        "#009489",
-        '#fdc8c0',
-        '#8de8e8',
-        '#ac92c0',
-        "#ab92b3",
-    ]
+        <TextField
+          required
+          id="outlined-required"
+          label="Room ID"
+          onChange={() => {
+            setInputField(actions.handleInputField(playerName, roomID));
+          }}
+          ref={roomID}
+        />
 
-
-    const handleClickGo = () => {
-        socket.emit('get-user', {
-            player: playerName.current.childNodes[1].childNodes[0].value,
-            room_id: roomID.current.childNodes[1].childNodes[0].value
-        })
-        setResigned(!isResigned)
-    }
-
-    const handleInputField = () => {
-        setInputField(
-            playerName?.current?.childNodes[1].childNodes[0].value &&
-            roomID?.current?.childNodes[1].childNodes[0].value
-        )
-
-    }
-
-    const joinRoom = () => {
-        if (roomID.current.childNodes[1].childNodes[0].value !== "") {
-            socket.emit('join_room', roomID.current.childNodes[1].childNodes[0].value)
-        }
-    }
-
-    return (
-        <div className={`w-max`}>
-            <h1 className={"pixel-font text-center text-5xl"}>Lottto</h1>
-            <div className={`flex flex-col gap-3 items-center justify-center px-3 ${!isResigned ? 'block' : 'hidden'}`}>
-
-                <TextField
-                    required
-                    id="outlined-required"
-                    label="Input your name"
-                    onChange={() => { handleInputField() }}
-                    ref={playerName}
-                />
-
-                <TextField
-                    required
-                    id="outlined-required"
-                    label="Room ID"
-                    onChange={() => { handleInputField() }}
-                    ref={roomID}
-                />
-
-                <Button
-                    disabled={!filled}
-                    variant="contained"
-                    className={`bg-blue-500`}
-                    onClick={() => { joinRoom(); handleClickGo(); }}
-                >
-
-                    Go!
-
-                </Button>
-
-            </div>
-            {
-                isResigned && 
-                <PlayersList
-
-                    socket={socket}
-                    player={playerName.current?.childNodes[1].childNodes[0].value}
-                    room_id={roomID.current?.childNodes[1].childNodes[0].value}
-                    color = {colors[Math.floor(Math.random() * 9)]}
-                />
-            }
-
-            
-        </div>
-    )
+        <Button
+          disabled={!filled}
+          variant="contained"
+          className={`bg-blue-500`}
+          onClick={() => {
+            actions.joinRoom(roomID);
+            actions.handleClickGo(playerName, roomID);
+          }}
+        >
+          Go!
+        </Button>
+      </div>
+    </div>
+  );
 }

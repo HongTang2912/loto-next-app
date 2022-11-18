@@ -1,23 +1,17 @@
-// Your ESLint configuration
 {
   "parser": "@babel/eslint-parser",
   "extends": [
     "next",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
+    "next/babel",
+    "next/core-web-vitals"
   ],
-  "plugins": [
-    // ...
-    
-    "react-hooks"
-  ],
+  "plugins": ["react-hooks"],
   "rules": {
-    // ...
-
-    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
-    "react-hooks/exhaustive-deps": "warn" // Checks effect dependencies
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   },
-   "parserOptions": {
-
-     "requireConfigFile": false
-   }
+  "parserOptions": {
+    "requireConfigFile": false
+  }
 }
