@@ -92,9 +92,12 @@ export default function PlayersList({
 
     setCallNumberClick(true);
 
-    setTimeout(() => {
-      setCallNumberClick(false);
-    }, 0);
+    setTimeout(
+      () => {
+        setCallNumberClick(false);
+      },
+      process.env.NODE_ENV == "development" ? 0 : 2000
+    );
   };
 
   return (
