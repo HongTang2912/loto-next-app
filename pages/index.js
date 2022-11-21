@@ -6,7 +6,7 @@ import PlayersList from "../components/PlayersList/playersList";
 import io from "socket.io-client";
 import * as React from "react";
 
-const socket = io.connect("http://localhost:3001/");
+const socket = io.connect("https://loto-backend.herokuapp.com");
 
 export default function Home() {
   const [isResigned, setResigned] = React.useState(false);
