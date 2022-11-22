@@ -33,3 +33,7 @@ a {
 .pixel-font {
   font-family: 'Silkscreen', cursive;
 }
+
+.text-clip {
+  text-overflow: clip;
+}

@@ -7,7 +7,8 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import ImageIcon from "@mui/icons-material/Image";
 import Button from "@mui/material/Button";
-import Cookies from "universal-cookie";
+// import Cookies from "universal-cookie";
+import { BsArrowReturnLeft } from "react-icons/bs";
 import Dialog from "../Dialog";
 
 export default function PlayersList({
@@ -29,12 +30,13 @@ export default function PlayersList({
 
   const LottoTable = useRef();
 
-  const uniqueObjects = (arr) => [
-    ...new Map(arr.map((item) => [item.player, item])).values(),
-  ];
+  const UnResigned = () => {
+    actions.setResigned(false);
+    socket.emit("remove-user", { player, room_id });
+  };
 
   useEffect(() => {
-    console.log(socket);
+    // console.log(socket);
     socket.on("new-user", (user) => {
       setPlayersList([...user]);
     });
@@ -84,7 +86,12 @@ export default function PlayersList({
   };
 
   const startTheGame = () => {
-    socket.emit("start-game", uniqueObjects(playersList), room_id, isStarted);
+    socket.emit(
+      "start-game",
+      actions.uniqueObjects(playersList),
+      room_id,
+      isStarted
+    );
   };
   const callANumber = () => {
     socket.emit("call-number", room_id, count, player, room_id);
@@ -103,6 +110,9 @@ export default function PlayersList({
   return (
     <>
       <div className={`${!isStarted ? "block" : "hidden"}`}>
+        <Button variant="outlined" onClick={() => UnResigned()}>
+          <BsArrowReturnLeft />
+        </Button>
         <List
           sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
           id="list"
@@ -113,7 +123,7 @@ export default function PlayersList({
               secondary={"welcome to room " + room_id}
             />
           </ListItem>
-          {uniqueObjects(playersList).map((p, i) => (
+          {actions.uniqueObjects(playersList).map((p, i) => (
             <ListItem key={i}>
               <ListItemAvatar>
                 <Avatar>
@@ -127,14 +137,14 @@ export default function PlayersList({
         <Button
           variant="contained"
           className={`bg-blue-500 ${
-            uniqueObjects([...playersList])[0]?.player == player
+            actions.uniqueObjects([...playersList])[0]?.player == player
               ? "block"
               : "hidden"
           } 
                         `}
           disabled={
-            uniqueObjects([...playersList])?.length <= 1 ||
-            uniqueObjects([...playersList])[0]?.player != player
+            actions.uniqueObjects([...playersList])?.length <= 1 ||
+            actions.uniqueObjects([...playersList])[0]?.player != player
           }
           onClick={() => {
             startTheGame();
@@ -155,7 +165,7 @@ export default function PlayersList({
           {newNumber}
         </div>
 
-        <div className={`relative flex justify-center`}>
+        <div className={`relative flex justify-center flex-col`}>
           <div
             className={`absolute top-0 opacity-80 h-full flex flex-col justify-center`}
           >
@@ -166,16 +176,15 @@ export default function PlayersList({
               body={winner}
             />
           </div>
-          <div className={`p-3`}>
+          {isStarted ? (
             <div
-              className={`${
-                isStarted ? "block" : "hidden"
-              } text-4xl pixel-font`}
+              className={`text-clip text-2xl pixel-font w-fit`}
               style={{ color: color }}
             >
               {player}'s lotto
             </div>
-
+          ) : null}
+          <div className={`p-3 w-full`}>
             {tables[0]?.map((items, index) => {
               return (
                 <div className="flex items-center justify-between" key={index}>
@@ -201,11 +210,11 @@ export default function PlayersList({
             end ||
             callNumberClick ||
             !isStarted ||
-            uniqueObjects([...playersList])[0]?.player != player
+            actions.uniqueObjects([...playersList])[0]?.player != player
           }
           variant="contained"
           className={`bg-blue-500 ${
-            uniqueObjects([...playersList])[0]?.player == player
+            actions.uniqueObjects([...playersList])[0]?.player == player
               ? "block"
               : "hidden"
           } 
