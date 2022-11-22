@@ -33,6 +33,7 @@ export default function PlayersList({
   const UnResigned = () => {
     actions.setResigned(false);
     socket.emit("remove-user", { player, room_id });
+    window.location.reload()
   };
 
   useEffect(() => {
@@ -136,11 +137,10 @@ export default function PlayersList({
         </List>
         <Button
           variant="contained"
-          className={`bg-blue-500 ${
-            actions.uniqueObjects([...playersList])[0]?.player == player
-              ? "block"
-              : "hidden"
-          } 
+          className={`bg-blue-500 ${actions.uniqueObjects([...playersList])[0]?.player == player
+            ? "block"
+            : "hidden"
+            } 
                         `}
           disabled={
             actions.uniqueObjects([...playersList])?.length <= 1 ||
@@ -213,11 +213,10 @@ export default function PlayersList({
             actions.uniqueObjects([...playersList])[0]?.player != player
           }
           variant="contained"
-          className={`bg-blue-500 ${
-            actions.uniqueObjects([...playersList])[0]?.player == player
-              ? "block"
-              : "hidden"
-          } 
+          className={`bg-blue-500 ${actions.uniqueObjects([...playersList])[0]?.player == player
+            ? "block"
+            : "hidden"
+            } 
                             `}
           onClick={() => {
             callANumber();
