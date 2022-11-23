@@ -146,6 +146,7 @@ export default function PlayersList({
 
             {actions.uniqueObjects([...playersList])[0]?.player == player ? (
               <Button
+                disabled={actions.uniqueObjects([...playersList])?.length > 1}
                 variant="contained"
                 className={`bg-blue-500 
                         `}
@@ -183,7 +184,7 @@ export default function PlayersList({
                 className={`text-clip text-2xl pixel-font w-fit`}
                 style={{ color: color }}
               >
-                {player}'s lottobbdddddddddddddddddd
+                {player}
               </div>
               <div className={`flex justify-center`}>
                 <div
