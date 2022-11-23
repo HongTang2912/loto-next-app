@@ -3,8 +3,6 @@ import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-
-
 export default function Inputname({ colors, actions }) {
   const [filled, setInputField] = React.useState(false);
 
@@ -13,7 +11,7 @@ export default function Inputname({ colors, actions }) {
 
   return (
     <div className={`w-max`}>
-      <h1 className={"pixel-font text-center text-5xl"}>Lottto</h1>
+      <h1 className={"pixel-font text-center text-5xl mb-3"}>Lottto</h1>
       <div className={`flex flex-col gap-3 items-center justify-center px-3 `}>
         <TextField
           required

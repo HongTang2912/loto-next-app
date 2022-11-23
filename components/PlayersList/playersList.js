@@ -6,10 +6,12 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import ImageIcon from "@mui/icons-material/Image";
-import Button from "@mui/material/Button";
+import { Spring, animated } from "react-spring";
 // import Cookies from "universal-cookie";
+import { Stack, Button } from "@mui/material";
 import { BsArrowReturnLeft } from "react-icons/bs";
-import Dialog from "../Dialog";
+import Dialog from "/utils/Dialog";
+import { elementTypeAcceptingRef } from "@mui/utils";
 
 export default function PlayersList({
   socket,
@@ -31,9 +33,9 @@ export default function PlayersList({
   const LottoTable = useRef();
 
   const UnResigned = () => {
-    actions.setResigned(false);
+    // actions.setResigned(false);s
     socket.emit("remove-user", { player, room_id });
-    window.location.reload()
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -70,9 +72,9 @@ export default function PlayersList({
     );
 
     if (number.length > 0 && element != null) {
+      element.style.transition = "all ease 0.4s";
       element.style.backgroundColor = color;
       element.style.color = "#fff";
-
       element.id = "bingo";
 
       let count_bingo = 0;
@@ -110,120 +112,139 @@ export default function PlayersList({
 
   return (
     <>
-      <div className={`${!isStarted ? "block" : "hidden"}`}>
-        <Button variant="outlined" onClick={() => UnResigned()}>
-          <BsArrowReturnLeft />
-        </Button>
-        <List
-          sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
-          id="list"
-        >
-          <ListItem>
-            <ListItemText
-              primary={"Hello " + player}
-              secondary={"welcome to room " + room_id}
-            />
-          </ListItem>
-          {actions.uniqueObjects(playersList).map((p, i) => (
-            <ListItem key={i}>
-              <ListItemAvatar>
-                <Avatar>
-                  <ImageIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary={p.player} />
+      {!isStarted ? (
+        <div>
+          <List
+            sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+            id="list"
+          >
+            <ListItem>
+              <ListItemText
+                primary={"Hello " + player}
+                secondary={"welcome to room " + room_id}
+              />
             </ListItem>
-          ))}
-        </List>
-        <Button
-          variant="contained"
-          className={`bg-blue-500 ${actions.uniqueObjects([...playersList])[0]?.player == player
-            ? "block"
-            : "hidden"
-            } 
+            {actions.uniqueObjects(playersList).map((p, i) => (
+              <ListItem key={i}>
+                <ListItemAvatar>
+                  <Avatar>
+                    <ImageIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText primary={p.player} />
+              </ListItem>
+            ))}
+          </List>
+          <Stack direction="row" spacing={2}>
+            <Button
+              variant="outlined"
+              color="error"
+              onClick={() => UnResigned()}
+            >
+              <BsArrowReturnLeft />
+            </Button>
+
+            {actions.uniqueObjects([...playersList])[0]?.player == player ? (
+              <Button
+                variant="contained"
+                className={`bg-blue-500 
                         `}
-          disabled={
-            actions.uniqueObjects([...playersList])?.length <= 1 ||
-            actions.uniqueObjects([...playersList])[0]?.player != player
-          }
-          onClick={() => {
-            startTheGame();
-          }}
-        >
-          <a>START!</a>
-        </Button>
-      </div>
+                onClick={() => {
+                  startTheGame();
+                }}
+              >
+                <a>START!</a>
+              </Button>
+            ) : (
+              <></>
+            )}
+          </Stack>
+        </div>
+      ) : (
+        <></>
+      )}
 
       <div
         className="flex flex-col items-center gap-4 lotto-table"
         ref={LottoTable}
       >
-        <div
-          className={`${isStarted ? "block" : "hidden"} text-8xl pixel-font`}
-          style={{ color: color }}
-        >
-          {newNumber}
-        </div>
+        {isStarted ? (
+          <div className={`text-8xl pixel-font`} style={{ color: color }}>
+            {newNumber}
+          </div>
+        ) : (
+          <></>
+        )}
 
         <div className={`relative flex justify-center flex-col`}>
-          <div
-            className={`absolute top-0 opacity-80 h-full flex flex-col justify-center`}
-          >
-            <Dialog
-              open={isWon}
-              setOpen={setWon}
-              title={"Bingooooo!"}
-              body={winner}
-            />
-          </div>
           {isStarted ? (
-            <div
-              className={`text-clip text-2xl pixel-font w-fit`}
-              style={{ color: color }}
-            >
-              {player}'s lotto
-            </div>
-          ) : null}
-          <div className={`p-3 w-full`}>
-            {tables[0]?.map((items, index) => {
-              return (
-                <div className="flex items-center justify-between" key={index}>
-                  {items.map((subItems, sIndex) => {
+            <>
+              <div
+                className={`text-clip text-2xl pixel-font w-fit`}
+                style={{ color: color }}
+              >
+                {player}'s lottobbdddddddddddddddddd
+              </div>
+              <div className={`flex justify-center`}>
+                <div
+                  className={`absolute top-0 opacity-80 h-full flex flex-col justify-center`}
+                >
+                  <Dialog
+                    open={isWon}
+                    setOpen={setWon}
+                    title={"Bingooooo!"}
+                    body={winner}
+                  />
+                </div>
+                <div className={`p-3 w-fit`}>
+                  {tables[0]?.map((items, index) => {
                     return (
                       <div
-                        key={sIndex}
-                        className="p-3 m-1 text-4xl font-bold text-center rounded-full"
-                        id={`sub-table-${subItems}`}
+                        className="flex items-center justify-between"
+                        key={index}
                       >
-                        {subItems >= 10 ? subItems : "0" + subItems}
+                        {items.map((subItems, sIndex) => {
+                          return (
+                            <div
+                              key={sIndex}
+                              className="p-3 m-1 text-4xl font-bold text-center rounded-full"
+                              id={`sub-table-${subItems}`}
+                            >
+                              {subItems >= 10 ? subItems : "0" + subItems}
+                            </div>
+                          );
+                        })}
                       </div>
                     );
                   })}
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
         </div>
 
-        <Button
-          disabled={
-            end ||
-            callNumberClick ||
-            !isStarted ||
-            actions.uniqueObjects([...playersList])[0]?.player != player
-          }
-          variant="contained"
-          className={`bg-blue-500 ${actions.uniqueObjects([...playersList])[0]?.player == player
-            ? "block"
-            : "hidden"
-            } 
+        {!isStarted ||
+        actions.uniqueObjects([...playersList])[0]?.player != player ? (
+          <></>
+        ) : (
+          <Button
+            disabled={
+              end ||
+              callNumberClick ||
+              actions.uniqueObjects([...playersList])[0]?.player != player
+            }
+            variant="contained"
+            className={`bg-blue-500 
                             `}
-          onClick={() => {
-            callANumber();
-          }}
-        >
-          <a>{"Call Number"}</a>
-        </Button>
+            onClick={() => {
+              callANumber();
+            }}
+          >
+            <a>{"Call Number"}</a>
+          </Button>
+        )}
       </div>
     </>
   );
