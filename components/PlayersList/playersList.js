@@ -146,7 +146,7 @@ export default function PlayersList({
 
             {actions.uniqueObjects([...playersList])[0]?.player == player ? (
               <Button
-                disabled={actions.uniqueObjects([...playersList])?.length > 1}
+                disabled={actions.uniqueObjects([...playersList])?.length < 2}
                 variant="contained"
                 className={`bg-blue-500 
                         `}
