@@ -4,6 +4,8 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 export default function Inputname({ colors, actions }) {
+  
+  
   const [filled, setInputField] = React.useState(false);
 
   const playerName = React.useRef();

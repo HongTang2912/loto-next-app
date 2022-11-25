@@ -1,17 +1,15 @@
 import { useState, useEffect, useRef } from "react";
-import ReactDOM from "react-dom";
+
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import ImageIcon from "@mui/icons-material/Image";
-import { Spring, animated } from "react-spring";
-// import Cookies from "universal-cookie";
+
 import { Stack, Button } from "@mui/material";
 import { BsArrowReturnLeft } from "react-icons/bs";
 import Dialog from "/utils/Dialog";
-import { elementTypeAcceptingRef } from "@mui/utils";
 
 export default function PlayersList({
   socket,
@@ -58,7 +56,7 @@ export default function PlayersList({
       }
     });
 
-    socket.on("the-winner", (list, room, winner) => {
+    socket.on("the-winner", (winner) => {
       setWon(true);
       setEnd(true);
       setWinner(winner);
@@ -226,26 +224,40 @@ export default function PlayersList({
           )}
         </div>
 
-        {!isStarted ||
-        actions.uniqueObjects([...playersList])[0]?.player != player ? (
-          <></>
-        ) : (
-          <Button
-            disabled={
-              end ||
-              callNumberClick ||
-              actions.uniqueObjects([...playersList])[0]?.player != player
-            }
-            variant="contained"
-            className={`bg-blue-500 
+        <Stack direction="row" spacing={2}>
+          {!isStarted ? (
+            <></>
+          ) : (
+            <Button
+              variant="outlined"
+              color="error"
+              onClick={() => UnResigned()}
+            >
+              <BsArrowReturnLeft />
+            </Button>
+          )}
+
+          {!isStarted ||
+          actions.uniqueObjects([...playersList])[0]?.player != player ? (
+            <></>
+          ) : (
+            <Button
+              disabled={
+                end ||
+                callNumberClick ||
+                actions.uniqueObjects([...playersList])[0]?.player != player
+              }
+              variant="contained"
+              className={`bg-blue-500 
                             `}
-            onClick={() => {
-              callANumber();
-            }}
-          >
-            <a>{"Call Number"}</a>
-          </Button>
-        )}
+              onClick={() => {
+                callANumber();
+              }}
+            >
+              <a>{"Call Number"}</a>
+            </Button>
+          )}
+        </Stack>
       </div>
     </>
   );
