@@ -10,9 +10,9 @@ const url =
   process.env.NODE_ENV == "development"
     ? "http://localhost:3001"
     : "https://loto-backend.herokuapp.com";
-
-export default function Home() {
   const socket = io.connect(url);
+export default function Home() {
+  
   const [isResigned, setResigned] = React.useState(false);
   const [player, setPlayer] = React.useState({});
 
