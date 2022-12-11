@@ -11,8 +11,10 @@ const url =
     ? "http://localhost:3001"
     : "https://loto-socketio-backend.vercel.app";
 
-export default function Home() {
+
   const socket = io.connect(url);
+export default function Home() {
+  
   const [isResigned, setResigned] = React.useState(false);
   const [player, setPlayer] = React.useState({});
 
