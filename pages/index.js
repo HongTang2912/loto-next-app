@@ -9,7 +9,7 @@ import * as React from "react";
 const url =
   process.env.NODE_ENV == "development"
     ? "http://localhost:3001"
-    : "https://loto-backend.herokuapp.com";
+    : "https://loto-socketio-backend.vercel.app";
 
 export default function Home() {
   const socket = io.connect(url);
