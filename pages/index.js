@@ -8,7 +8,7 @@ import * as React from "react";
 
 const url =
   process.env.NODE_ENV == "development"
-    ? "http://localhost:3001"
+    ? "https://loto-socketio-backend-git-main-hongtang-digiex.vercel.app"
     : "https://loto-socketio-backend-git-main-hongtang-digiex.vercel.app";
 
 
