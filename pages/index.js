@@ -9,7 +9,7 @@ import * as React from "react";
 const url =
   process.env.NODE_ENV == "development"
     ? "http://localhost:3001"
-    : "https://loto-socketio-backend.vercel.app";
+    : "https://loto-socketio-backend-git-main-hongtang-digiex.vercel.app";
 
 
   const socket = io.connect(url);
