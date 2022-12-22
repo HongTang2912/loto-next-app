@@ -12,7 +12,7 @@ const url =
     : "https://loto-socketio-backend.vercel.app";
 
 
-  const socket = io.connect(url);
+  const socket = io.connect(url, {transports: ['websocket', 'polling', 'flashsocket']});
 export default function Home() {
   
   const [isResigned, setResigned] = React.useState(false);
