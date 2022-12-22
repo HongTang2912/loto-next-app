@@ -8,11 +8,11 @@ import * as React from "react";
 
 const url =
   process.env.NODE_ENV == "development"
-    ? "https://loto-socketio-backend-git-main-hongtang-digiex.vercel.app"
-    : "https://loto-socketio-backend-git-main-hongtang-digiex.vercel.app";
+    ? "http://localhost:3000"
+    : "https://loto-socketio-backend.vercel.app";
 
 
-  const socket = io.connect("https://loto-socketio-backend.vercel.app");
+  const socket = io.connect(url, { transports : ['websocket'] });
 export default function Home() {
   
   const [isResigned, setResigned] = React.useState(false);
