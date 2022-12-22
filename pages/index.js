@@ -12,7 +12,7 @@ const url =
     : "https://loto-socketio-backend-git-main-hongtang-digiex.vercel.app";
 
 
-  const socket = io.connect(url);
+  const socket = io();
 export default function Home() {
   
   const [isResigned, setResigned] = React.useState(false);
