@@ -9,6 +9,8 @@ import * as React from "react";
 const url = process.env.NEXT_PUBLIC_URL;
 
 const socket = io.connect(url, {
+  secure: true,
+  rejectUnauthorized: false,
   transports: ["websocket", "polling", "flashsocket"],
 });
 export default function Home() {
