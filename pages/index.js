@@ -13,6 +13,7 @@ const socket = io.connect(url, {
   rejectUnauthorized: false,
   transports: ["websocket", "polling", "flashsocket"],
 });
+
 export default function Home() {
   const [isResigned, setResigned] = React.useState(false);
   const [player, setPlayer] = React.useState({});
