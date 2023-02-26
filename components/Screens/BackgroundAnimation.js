@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 export default function BackgroundAnimation() {
-  const intervalGap = 500;
+  const intervalGap = 200;
   const limit = 100;
   const [bubblePropsList, setBubblePropsList] = useState([]);
 
