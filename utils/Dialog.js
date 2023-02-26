@@ -2,12 +2,11 @@ import * as React from 'react';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 
-export default function AlertDialogSlide({ open, setOpen, title, body }) {
+export default function AlertDialogSlide({ open, body }) {
 
 
     return (
         <>
-            {console.log(body)}
             {
                 open &&
                 (
