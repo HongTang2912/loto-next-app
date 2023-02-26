@@ -11,13 +11,7 @@ import { Stack, Button } from "@mui/material";
 import { BsArrowReturnLeft } from "react-icons/bs";
 import Dialog from "/utils/Dialog";
 
-export default function PlayersList({
-  socket,
-  room_id,
-  player,
-  color,
-  actions,
-}) {
+export default function GamePlay({ socket, room_id, player, color, actions }) {
   const [winner, setWinner] = useState("");
   const [isWon, setWon] = useState(false);
   const [end, setEnd] = useState(false);
@@ -31,13 +25,60 @@ export default function PlayersList({
   const LottoTable = useRef();
 
   const UnResigned = () => {
-    // actions.setResigned(false);s
     socket.emit("remove-user", { player, room_id });
     window.location.reload();
   };
 
+  const fillBingoNumber = (number) => {
+    let lastNumbers = number[number.length - 1];
+    let element = LottoTable.current.querySelector(
+      `div div#sub-table-${lastNumbers}`
+    );
+
+    if (number.length > 0 && element != null) {
+      element.style.transition = "all ease 0.4s";
+      element.style.backgroundColor = color;
+      element.style.color = "#fff";
+      element.id = "bingo";
+
+      let count_bingo = 0;
+      for (let i = 0; i < 5; i++) {
+        if (element.parentNode.childNodes[i].id == "bingo") {
+          count_bingo++;
+        }
+      }
+
+      return count_bingo;
+    }
+  };
+
+  // Start game function
+  const startTheGame = () => {
+    // Dispatch the "start-game" emmition to socket.io server
+    socket.emit(
+      "start-game",
+      actions.uniqueObjects(playersList),
+      room_id,
+      isStarted
+    );
+  };
+
+  const callANumber = () => {
+    socket.emit("call-number", room_id, count, player, room_id);
+    setCount(count + 1);
+
+    setCallNumberClick(true);
+
+    setTimeout(
+      () => {
+        setCallNumberClick(false);
+      },
+      process.env.NODE_ENV == "development" ? 0 : 2000
+    );
+  };
+
+  // Dispatch an action when socket's instances were changed
   useEffect(() => {
-    // console.log(socket);
     socket.on("new-user", (user) => {
       setPlayersList([...user]);
     });
@@ -63,121 +104,19 @@ export default function PlayersList({
     });
   }, [socket]);
 
-  const fillBingoNumber = (number) => {
-    let lastNumbers = number[number.length - 1];
-    let element = LottoTable.current.querySelector(
-      `div div#sub-table-${lastNumbers}`
-    );
-
-    if (number.length > 0 && element != null) {
-      element.style.transition = "all ease 0.4s";
-      element.style.backgroundColor = color;
-      element.style.color = "#fff";
-      element.id = "bingo";
-
-      let count_bingo = 0;
-      for (let i = 0; i < 5; i++) {
-        if (element.parentNode.childNodes[i].id == "bingo") {
-          count_bingo++;
-        }
-      }
-
-      return count_bingo;
-    }
-  };
-
-  const startTheGame = () => {
-    socket.emit(
-      "start-game",
-      actions.uniqueObjects(playersList),
-      room_id,
-      isStarted
-    );
-  };
-  const callANumber = () => {
-    socket.emit("call-number", room_id, count, player, room_id);
-    setCount(count + 1);
-
-    setCallNumberClick(true);
-
-    setTimeout(
-      () => {
-        setCallNumberClick(false);
-      },
-      process.env.NODE_ENV == "development" ? 0 : 2000
-    );
-  };
-
   return (
     <>
-      {!isStarted ? (
-        <div>
-          <List
-            sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
-            id="list"
-          >
-            <ListItem>
-              <ListItemText
-                primary={"Hello " + player}
-                secondary={"welcome to room " + room_id}
-              />
-            </ListItem>
-            {actions.uniqueObjects(playersList).map((p, i) => (
-              <ListItem key={i}>
-                <ListItemAvatar>
-                  <Avatar>
-                    <ImageIcon />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary={p.player} />
-              </ListItem>
-            ))}
-          </List>
-          <Stack direction="row" spacing={2}>
-            <Button
-              variant="outlined"
-              color="error"
-              onClick={() => UnResigned()}
-            >
-              <BsArrowReturnLeft />
-            </Button>
-
-            {actions.uniqueObjects([...playersList])[0]?.player == player ? (
-              <Button
-                disabled={actions.uniqueObjects([...playersList])?.length < 2}
-                variant="contained"
-                className={`bg-blue-500 
-                        `}
-                onClick={() => {
-                  startTheGame();
-                }}
-              >
-                <a>START!</a>
-              </Button>
-            ) : (
-              <></>
-            )}
-          </Stack>
-        </div>
-      ) : (
-        <></>
-      )}
-
       <div
-        className="flex flex-col items-center gap-4 lotto-table"
+        id="lotto-table"
+        className="flex flex-col items-center gap-4"
         ref={LottoTable}
       >
         {isStarted ? (
-          <div className={`text-8xl pixel-font`} style={{ color: color }}>
-            {newNumber}
-          </div>
-        ) : (
-          <></>
-        )}
-
-        <div className={`relative flex justify-center flex-col`}>
-          {isStarted ? (
-            <>
+          <>
+            <div className={`text-8xl pixel-font`} style={{ color: color }}>
+              {newNumber}
+            </div>
+            <div className={`relative flex justify-center flex-col`}>
               <div
                 className={`text-clip text-2xl pixel-font w-fit`}
                 style={{ color: color }}
@@ -218,46 +157,86 @@ export default function PlayersList({
                   })}
                 </div>
               </div>
-            </>
-          ) : (
-            <></>
-          )}
-        </div>
+            </div>
+            <Stack direction="row" spacing={2}>
+              <Button
+                variant="outlined"
+                color="error"
+                onClick={() => UnResigned()}
+              >
+                <BsArrowReturnLeft />
+              </Button>
 
-        <Stack direction="row" spacing={2}>
-          {!isStarted ? (
-            <></>
-          ) : (
-            <Button
-              variant="outlined"
-              color="error"
-              onClick={() => UnResigned()}
-            >
-              <BsArrowReturnLeft />
-            </Button>
-          )}
-
-          {!isStarted ||
-          actions.uniqueObjects([...playersList])[0]?.player != player ? (
-            <></>
-          ) : (
-            <Button
-              disabled={
-                end ||
-                callNumberClick ||
-                actions.uniqueObjects([...playersList])[0]?.player != player
-              }
-              variant="contained"
-              className={`bg-blue-500 
+              {!actions.uniqueObjects([...playersList])[0]?.player !=
+                player && (
+                <Button
+                  disabled={
+                    end ||
+                    callNumberClick ||
+                    actions.uniqueObjects([...playersList])[0]?.player != player
+                  }
+                  variant="contained"
+                  className={`bg-blue-500 
                             `}
-              onClick={() => {
-                callANumber();
-              }}
+                  onClick={() => {
+                    callANumber();
+                  }}
+                >
+                  <a>{"Call Number"}</a>
+                </Button>
+              )}
+            </Stack>
+          </>
+        ) : (
+          <>
+            <List
+              sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+              id="list"
             >
-              <a>{"Call Number"}</a>
-            </Button>
-          )}
-        </Stack>
+              <ListItem>
+                <ListItemText
+                  primary={"Hello " + player}
+                  secondary={"welcome to room " + room_id}
+                />
+              </ListItem>
+              {actions.uniqueObjects(playersList).map((p, i) => (
+                <ListItem key={i}>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <ImageIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary={p.player} />
+                </ListItem>
+              ))}
+            </List>
+            <Stack direction="row" spacing={2}>
+              <Button
+                variant="outlined"
+                color="error"
+                onClick={() => UnResigned()}
+              >
+                <BsArrowReturnLeft />
+              </Button>
+
+              {actions.uniqueObjects([...playersList])[0]?.player == player ? (
+                <Button
+                  disabled={actions.uniqueObjects([...playersList])?.length < 2}
+                  variant="contained"
+                  className={`bg-blue-500 
+                        `}
+                  onClick={() => {
+                    startTheGame();
+                  }}
+                >
+                  <a>START!</a>
+                </Button>
+              ) : (
+                <></>
+              )}
+            </Stack>
+          </>
+        )}
       </div>
     </>
   );
