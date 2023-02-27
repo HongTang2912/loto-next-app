@@ -19,6 +19,7 @@ const socket = io.connect(url, {
 export default function Home() {
   const [isResigned, setResigned] = React.useState(false);
   const [player, setPlayer] = React.useState({});
+  const [isMountAnimation, setIsMountAnimation] = React.useState(true);
 
   const colors = [
     "#e97b40",
@@ -99,6 +100,7 @@ export default function Home() {
           ) : (
             <>
               <GamePlay
+                setIsMountAnimation={setIsMountAnimation}
                 socket={socket}
                 player={player.player}
                 room_id={player.room_id}
@@ -109,7 +111,7 @@ export default function Home() {
           )}
         </div>
       </div>
-      <BackgroundAnimation />
+      {isMountAnimation && <BackgroundAnimation />}
     </>
   );
 }

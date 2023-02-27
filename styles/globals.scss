@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+$beforeScale: 1;
+$afterScale: 0;
+
 html,
 body {
   padding: 0;
@@ -58,29 +61,29 @@ a {
   0% {
     background: transparent;
     color: black;
-  transform: scale(1, 1);
-  -webkit-transform: scale(1, 1);
-    -moz-transform: scale(1, 1);
-    -ms-transform: scale(1, 1);
-    -o-transform: scale(1, 1);
+  transform: scale($beforeScale, $beforeScale);
+  -webkit-transform: scale($beforeScale, $beforeScale);
+    -moz-transform: scale($beforeScale, $beforeScale);
+    -ms-transform: scale($beforeScale, $beforeScale);
+    -o-transform: scale($beforeScale, $beforeScale);
   }
   
   50% {
-    transform: scale(0, 0);
-    -webkit-transform: scale(0, 0);
-    -moz-transform: scale(0, 0);
-    -ms-transform: scale(0, 0);
-    -o-transform: scale(0, 0);
+    transform: scale($afterScale, $afterScale);
+    -webkit-transform: scale($afterScale, $afterScale);
+    -moz-transform: scale($afterScale, $afterScale);
+    -ms-transform: scale($afterScale, $afterScale);
+    -o-transform: scale($afterScale, $afterScale);
     opacity: 0
 }
  
   100% {
     opacity: 1;
-  transform: scale(1, 1);
-  -webkit-transform: scale(1, 1);
-    -moz-transform: scale(1, 1);
-    -ms-transform: scale(1, 1);
-    -o-transform: scale(1, 1);
-    -o-transform: scale(0, 0);
+  transform: scale($beforeScale, $beforeScale);
+  -webkit-transform: scale($beforeScale, $beforeScale);
+    -moz-transform: scale($beforeScale, $beforeScale);
+    -ms-transform: scale($beforeScale, $beforeScale);
+    -o-transform: scale($beforeScale, $beforeScale);
+    -o-transform: scale($beforeScale, $beforeScale);
   }
 }

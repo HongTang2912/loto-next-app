@@ -11,7 +11,14 @@ import { Stack, Button } from "@mui/material";
 import { BsArrowReturnLeft } from "react-icons/bs";
 import Dialog from "/utils/Dialog";
 
-export default function GamePlay({ socket, room_id, player, color, actions }) {
+export default function GamePlay({
+  socket,
+  room_id,
+  player,
+  color,
+  actions,
+  setIsMountAnimation,
+}) {
   const [winner, setWinner] = useState("");
   const [isWon, setWon] = useState(false);
   const [end, setEnd] = useState(false);
@@ -57,11 +64,8 @@ export default function GamePlay({ socket, room_id, player, color, actions }) {
 
   // Click to select the number which has appeared on the called numbers array
   const handleClickNumber = (num) => {
-    let element = LottoTable.current.querySelector(
-      `div div#sub-table-${num}`
-    );
+    let element = LottoTable.current.querySelector(`div div#sub-table-${num}`);
     if (listCalledNumber.includes(num) && element) {
-
       element.style.animationName = "zoomBig";
       element.style.animationDuration = "0.5s";
       element.style.animatopnTimingFunction = "linear";
@@ -69,20 +73,21 @@ export default function GamePlay({ socket, room_id, player, color, actions }) {
       element.style.color = "#fff";
       element.id = "bingo";
 
-      const isBingo = Array.prototype.every.call(element.parentNode.childNodes,
+      const isBingo = Array.prototype.every.call(
+        element.parentNode.childNodes,
         (ele) => {
           if (ele.id === "bingo") {
-            return true
+            return true;
           }
-          return false
-        })
+          return false;
+        }
+      );
 
       if (isBingo) {
         socket.emit("end-game", player, room_id);
       }
     }
-
-  }
+  };
 
   // Dispatch an action when socket's instances were changed
   useEffect(() => {
@@ -95,10 +100,11 @@ export default function GamePlay({ socket, room_id, player, color, actions }) {
 
       setTables((prev) => [...prev, ...newArr]);
       setStartGame(start);
+      setIsMountAnimation(false);
     });
     socket.on("get-number", (number, count) => {
       setNewNumber(number[count]);
-      setListCalledNumber(number)
+      setListCalledNumber(number);
     });
 
     socket.on("the-winner", (winner) => {
@@ -131,10 +137,7 @@ export default function GamePlay({ socket, room_id, player, color, actions }) {
                 <div
                   className={`absolute top-0 opacity-80 h-full flex flex-col justify-center`}
                 >
-                  <Dialog
-                    open={isWon}
-                    body={winner}
-                  />
+                  <Dialog open={isWon} body={winner} />
                 </div>
                 <div className={`p-3 w-fit`}>
                   {tables[0]?.map((items, index) => {
@@ -145,11 +148,10 @@ export default function GamePlay({ socket, room_id, player, color, actions }) {
                       >
                         {items.map((subItems, sIndex) => {
                           return (
-
                             <div
                               onClick={() => handleClickNumber(subItems)}
                               key={sIndex}
-                              className=" p-3 m-1 w-16 text-4xl font-semibold text-center rounded-full"
+                              className="w-16 p-3 m-1 text-4xl font-semibold text-center rounded-full "
                               id={`sub-table-${subItems}`}
                             >
                               {subItems}
@@ -173,22 +175,22 @@ export default function GamePlay({ socket, room_id, player, color, actions }) {
 
               {!actions.uniqueObjects([...playersList])[0]?.player !=
                 player && (
-                  <Button
-                    disabled={
-                      end ||
-                      callNumberClick ||
-                      actions.uniqueObjects([...playersList])[0]?.player != player
-                    }
-                    variant="contained"
-                    className={`bg-blue-500 
+                <Button
+                  disabled={
+                    end ||
+                    callNumberClick ||
+                    actions.uniqueObjects([...playersList])[0]?.player != player
+                  }
+                  variant="contained"
+                  className={`bg-blue-500 
                             `}
-                    onClick={() => {
-                      callANumber();
-                    }}
-                  >
-                    <a>{"Call Number"}</a>
-                  </Button>
-                )}
+                  onClick={() => {
+                    callANumber();
+                  }}
+                >
+                  <a>{"Call Number"}</a>
+                </Button>
+              )}
             </Stack>
           </>
         ) : (
