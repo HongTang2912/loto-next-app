@@ -1,4 +1,4 @@
-export function shuffle(array) {
+function shuffle(array) {
     let currentIndex = array.length, randomIndex;
 
     // While there remain elements to shuffle.
@@ -15,3 +15,5 @@ export function shuffle(array) {
 
     return array;
 }
+
+export const shuffled = shuffle([0, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300])
