@@ -10,7 +10,7 @@ import NumberFloating from "./animate";
 
 export default function BackgroundAnimation() {
   const intervalGap = 400;
-  const limit = 20;
+  const limit = 15;
   const [bubblePropsList, setBubblePropsList] = useState([]);
   const colors = useMemo(
     () => [
@@ -27,7 +27,7 @@ export default function BackgroundAnimation() {
     ],
     []
   );
-  const initPositions = useMemo(() => shuffle([0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300]));
+  const initPositions = useMemo(() => shuffle([0,  40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300]));
 
   const generator = useCallback(() => {
     const mainColor = colors[Math.floor(Math.random() * colors.length)];
