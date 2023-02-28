@@ -34,8 +34,8 @@ export default function BackgroundAnimation() {
             styles: {
               animationDuration: `${Math.random() * 6 + 10}s`,
               top: 0,
-              left: `${Math.random() * 60 * 5}vw`,
-              transform: `scale(${Math.random() * 0.4 + 0.2})`,
+              left: `${Math.random() * 40 * 5}vw`,
+              transform: `scale(${Math.random() * 0.3 + 0.2})`,
             },
           },
         ];
