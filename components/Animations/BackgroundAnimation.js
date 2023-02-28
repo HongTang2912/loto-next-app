@@ -27,7 +27,7 @@ export default function BackgroundAnimation() {
     ],
     []
   );
-  const initPositions = useMemo(() => shuffle([0,  40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300]));
+  const initPositions = useMemo(() => shuffle([0, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300]));
 
   const generator = useCallback(() => {
     const mainColor = colors[Math.floor(Math.random() * colors.length)];
@@ -44,8 +44,8 @@ export default function BackgroundAnimation() {
           styles: {
             animationDuration: `${Math.random() * 6 + 10}s`,
             top: 0,
-            left: `${init + (Math.random() * 20 - 10)}vw`,
-            transform: `scale(${Math.random() * 0.3 + 0.2})`,
+            left: `${init + (Math.random() * 15 - 7.5)}vw`,
+            transform: `scale(${Math.random() * 0.3 + 0.3})`,
           },
         },
       ];
