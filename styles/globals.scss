@@ -51,6 +51,20 @@ a {
   text-overflow: clip;
 }
 
+.fade {
+  animation:  fadeOut 1.2s infinite linear;
+}
+.fade-delay-1 {
+animation-delay: 1s;
+}
+.fade-delay-2 {
+animation-delay: 2s;
+}
+
+.spiner {
+  animation: spin 2s linear infinite;
+}
+
 @keyframes myAnimation {
   to {
     top: 300vh;
@@ -85,5 +99,35 @@ a {
     -ms-transform: scale($beforeScale, $beforeScale);
     -o-transform: scale($beforeScale, $beforeScale);
     -o-transform: scale($beforeScale, $beforeScale);
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    background: black;
+    display: block;
+    height: 0;
+    top: 100%;
+    opacity: 0;
+  }
+ 
+  80% {
+  background: black;
+
+    height: 80%;
+    opacity: 0.6;
+  }
+
+  100% {
+background: black;
+    height: 0;
+    top: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes spin {
+  100% {
+    rotate: 360deg;
   }
 }

@@ -6,7 +6,7 @@ import InputName from "/components/Inputname";
 import io from "socket.io-client";
 import * as React from "react";
 
-import BackgroundAnimation from "../components/Screens/BackgroundAnimation";
+import BackgroundAnimation from "../components/Animations/BackgroundAnimation";
 
 const url = process.env.NEXT_PUBLIC_URL;
 
