@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import NumberFloating from "./animate";
 
 export default function BackgroundAnimation() {
-  const intervalGap = 200;
-  const limit = 40;
+  const intervalGap = 400;
+  const limit = 25;
   const [bubblePropsList, setBubblePropsList] = useState([]);
   const colors = [
     "#e97b40",
@@ -34,7 +34,7 @@ export default function BackgroundAnimation() {
             styles: {
               animationDuration: `${Math.random() * 6 + 10}s`,
               top: 0,
-              left: `${Math.random() * 25 * 5}vw`,
+              left: `${Math.random() * 60 * 5}vw`,
               transform: `scale(${Math.random() * 0.3 + 0.2})`,
             },
           },
