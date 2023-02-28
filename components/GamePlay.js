@@ -6,10 +6,10 @@ import {
   , ListItemText
   , ListItemAvatar
   , Avatar
-  , ImageIcon, Stack, Button,FavoriteBorder
+  , ImageIcon, Stack, IconButton
 } from "@mui/material";
 
-import {IconButton} from '@mui/joy';
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 
 import Dialog from "/utils/Dialog";
 
@@ -167,13 +167,17 @@ export default function GamePlay({
               </div>
             </div>
             <Stack direction="row" spacing={2}>
-              <IconButton
-                variant="soft"
-                color="error"
-                onClick={() => UnResigned()}
-              >
-                <FavoriteBorder />
-              </IconButton>
+              <div className="border-2 border-red-500 rounded-full">
+
+                <IconButton
+
+                  color="error"
+                  onClick={() => UnResigned()}
+                >
+                  <KeyboardReturnIcon />
+                </IconButton >
+              </div>
+
 
               {!actions.uniqueObjects([...playersList])[0]?.player !=
                 player && (
@@ -220,13 +224,17 @@ export default function GamePlay({
             </List>
             <Stack direction="row" spacing={2}>
 
-              <IconButton
-                variant="soft"
-                color="error"
-                onClick={() => UnResigned()}
-              >
-                <FavoriteBorder />
-              </IconButton>
+
+              <div className="border-2 border-red-500 rounded-full">
+
+                <IconButton
+
+                  color="error"
+                  onClick={() => UnResigned()}
+                >
+                  <KeyboardReturnIcon />
+                </IconButton >
+              </div>
 
               {actions.uniqueObjects([...playersList])[0]?.player == player ? (
                 <Button

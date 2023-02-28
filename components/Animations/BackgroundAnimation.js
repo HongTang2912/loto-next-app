@@ -30,7 +30,6 @@ export default function BackgroundAnimation() {
 
   const initPositions = useMemo(() => shuffled, [])
 
-  console.log(colors);
   const generator = useCallback(() => {
     const mainColor = colors[Math.floor(Math.random() * colors.length)];
     setBubblePropsList((prev) => {

@@ -13,10 +13,10 @@
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.18.9",
-    "@emotion/react": "^11.10.0",
-    "@emotion/styled": "^11.10.0",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.10.2",
-    "@mui/joy": "^5.0.0-alpha.42",
+    "@mui/joy": "^5.0.0-alpha.69",
     "@mui/material": "^5.10.2",
     "eslint": "^8.23.0",
     "eslint-plugin-react-hooks": "^4.6.0",
