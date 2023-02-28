@@ -1,19 +1,6 @@
 import React from "react";
 
-export default function NumberFloating({ number }) {
-  const colors = [
-    "#e97b40",
-    "#e9cbff",
-    "#99ccdd",
-    "#a4daef",
-    "#aaddee",
-    "#009489",
-    "#fdc8c0",
-    "#8de8e8",
-    "#ac92c0",
-    "#ab92b3",
-  ];
-  const mainColor = colors[Math.floor(Math.random() * colors.length)];
+export default function NumberFloating({ number, mainColor }) {
   return (
     <span
       className="inline-flex flex-col gap-5 scaler"
