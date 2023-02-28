@@ -5,11 +5,12 @@ import React, {
   useMemo,
   useRef,
 } from "react";
+import { shuffle } from "../../utils/shuffleArray";
 import NumberFloating from "./animate";
 
 export default function BackgroundAnimation() {
   const intervalGap = 400;
-  const limit = 15;
+  const limit = 20;
   const [bubblePropsList, setBubblePropsList] = useState([]);
   const colors = useMemo(
     () => [
@@ -26,10 +27,12 @@ export default function BackgroundAnimation() {
     ],
     []
   );
+  const initPositions = useMemo(() => shuffle([0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300]));
 
   const generator = useCallback(() => {
     const mainColor = colors[Math.floor(Math.random() * colors.length)];
     setBubblePropsList((prev) => {
+      const init = initPositions[prev.length];
       if (prev.length >= limit) {
         clearInterval(intervalRef.current);
       }
@@ -41,7 +44,7 @@ export default function BackgroundAnimation() {
           styles: {
             animationDuration: `${Math.random() * 6 + 10}s`,
             top: 0,
-            left: `${Math.random() * 60 * 5}vw`,
+            left: `${init + (Math.random() * 20 - 10)}vw`,
             transform: `scale(${Math.random() * 0.3 + 0.2})`,
           },
         },

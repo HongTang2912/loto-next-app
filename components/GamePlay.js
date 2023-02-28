@@ -1,14 +1,16 @@
 import { useState, useEffect, useRef } from "react";
 
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
-import ImageIcon from "@mui/icons-material/Image";
+import {
+  List
+  , ListItem
+  , ListItemText
+  , ListItemAvatar
+  , Avatar
+  , ImageIcon, Stack, Button,FavoriteBorder
+} from "@mui/material";
 
-import { Stack, Button } from "@mui/material";
-import { BsArrowReturnLeft } from "react-icons/bs";
+import {IconButton} from '@mui/joy';
+
 import Dialog from "/utils/Dialog";
 
 export default function GamePlay({
@@ -165,32 +167,32 @@ export default function GamePlay({
               </div>
             </div>
             <Stack direction="row" spacing={2}>
-              <Button
-                variant="outlined"
+              <IconButton
+                variant="soft"
                 color="error"
                 onClick={() => UnResigned()}
               >
-                <BsArrowReturnLeft />
-              </Button>
+                <FavoriteBorder />
+              </IconButton>
 
               {!actions.uniqueObjects([...playersList])[0]?.player !=
                 player && (
-                <Button
-                  disabled={
-                    end ||
-                    callNumberClick ||
-                    actions.uniqueObjects([...playersList])[0]?.player != player
-                  }
-                  variant="contained"
-                  className={`bg-blue-500 
+                  <Button
+                    disabled={
+                      end ||
+                      callNumberClick ||
+                      actions.uniqueObjects([...playersList])[0]?.player != player
+                    }
+                    variant="contained"
+                    className={`bg-blue-500 
                             `}
-                  onClick={() => {
-                    callANumber();
-                  }}
-                >
-                  <a>{"Call Number"}</a>
-                </Button>
-              )}
+                    onClick={() => {
+                      callANumber();
+                    }}
+                  >
+                    <a>{"Call Number"}</a>
+                  </Button>
+                )}
             </Stack>
           </>
         ) : (
@@ -217,13 +219,14 @@ export default function GamePlay({
               ))}
             </List>
             <Stack direction="row" spacing={2}>
-              <Button
-                variant="outlined"
+
+              <IconButton
+                variant="soft"
                 color="error"
                 onClick={() => UnResigned()}
               >
-                <BsArrowReturnLeft />
-              </Button>
+                <FavoriteBorder />
+              </IconButton>
 
               {actions.uniqueObjects([...playersList])[0]?.player == player ? (
                 <Button
@@ -242,8 +245,9 @@ export default function GamePlay({
               )}
             </Stack>
           </>
-        )}
-      </div>
+        )
+        }
+      </div >
     </>
   );
 }
