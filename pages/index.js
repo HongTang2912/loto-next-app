@@ -1,7 +1,7 @@
 import Head from "next/head";
 // import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import GamePlay from "../components/GamePlay";
+import GamePlay from "../components/GamePlay.js";
 import InputName from "/components/Inputname";
 import io from "socket.io-client";
 import * as React from "react";
