@@ -9,7 +9,7 @@ import NumberFloating from "./animate";
 
 export default function BackgroundAnimation() {
   const intervalGap = 400;
-  const limit = 25;
+  const limit = 15;
   const [bubblePropsList, setBubblePropsList] = useState([]);
   const colors = useMemo(
     () => [
