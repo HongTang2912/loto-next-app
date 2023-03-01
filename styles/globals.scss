@@ -37,6 +37,7 @@ a {
   margin-left: -35rem;
   margin-top: -35rem;
 }
+
 .circle-dot {
   border-radius: 50%;
   animation: myAnimation linear infinite;
@@ -129,5 +130,16 @@ animation-delay: 1.6s;
 @keyframes spin {
   100% {
     rotate: 360deg;
+  }
+}
+
+@media screen and (max-width: 768px){
+    .animate-frame {
+      margin-top: -50rem;
+    }
+}
+@media screen and (max-width: 640px) {
+  .animate-frame {
+    margin-top: -70rem;
   }
 }
