@@ -16,4 +16,4 @@ function shuffle(array) {
     return array;
 }
 
-export const shuffled = shuffle([0, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300])
+export const shuffled = shuffle([5 ,10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100])

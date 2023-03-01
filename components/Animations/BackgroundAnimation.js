@@ -70,5 +70,5 @@ export default function BackgroundAnimation() {
     );
   }
 
-  return <div className="fixed -top-23 animate-frame">{bubbles}</div>;
+  return <div className="fixed animate-frame">{bubbles}</div>;
 }
