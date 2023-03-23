@@ -28,10 +28,10 @@ export default function NumberFloating({ number, mainColor, blobStyle }) {
       </span>
 
       <div
-        style={{ background: mainColor, borderColor: mainColor, ...blobStyle }}
-        className={`flex bg-white items-center justify-center w-28 h-28 border-8 text-slate-50 shadow-md`}
+        className={`spiner flex bg-transparent items-center justify-center w-40 h-40 text-slate-50`}
       >
-        <p className="text-6xl font-extrabold">{number}</p>
+        {blobStyle(mainColor)}
+        <p className="text-6xl font-extrabold absolute">{number}</p>
       </div>
     </span>
   );

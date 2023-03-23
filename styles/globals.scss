@@ -43,8 +43,9 @@ a {
   animation: fadingEffect linear infinite;
 }
 
-.blob-radius {
-
+.spiner  {
+  animation: spin 8s infinite linear;
+  -webkit-animation: spin 8s infinite linear;
 }
 
 
@@ -68,9 +69,6 @@ animation-delay: 0.8s;
 animation-delay: 1.6s;
 }
 
-.spiner {
-  animation: spin 2s linear infinite;
-}
 
 @keyframes fadingEffect {
   to {

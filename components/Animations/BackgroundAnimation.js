@@ -7,7 +7,8 @@ import React, {
 } from "react";
 import { shuffled } from "../../utils/shuffleArray";
 import NumberFloating from "./animate";
-import configColors from "../../utils/configuration/color.json";
+import configColors from "../../utils/configuration/colors.json";
+import { blobs } from "../../utils/configuration/blobs";
 
 const intervalGap = 1000;
 const limit = 15;
@@ -45,10 +46,7 @@ export default function BackgroundAnimation() {
             left: `${init + (Math.random() * 15 - 7.5)}vw`,
             transform: `scale(${Math.random() * 0.3 + 0.3})`,
           },
-          blobStyle: {
-            borderRadius: borderBlobs(),
-            animation: "spin 4.2s infinite linear",
-          },
+          blobStyle: blobs[Math.floor(Math.random() * 20)],
         },
       ];
     });
