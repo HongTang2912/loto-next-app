@@ -7,9 +7,10 @@ import React, {
 } from "react";
 import NumberFloating from "./animate";
 
+const intervalGap = 400;
+const limit = 15;
+
 export default function BackgroundAnimation() {
-  const intervalGap = 400;
-  const limit = 15;
   const [bubblePropsList, setBubblePropsList] = useState([]);
   const colors = useMemo(
     () => [
@@ -41,7 +42,7 @@ export default function BackgroundAnimation() {
           styles: {
             animationDuration: `${Math.random() * 6 + 10}s`,
             top: 0,
-            left: `${Math.random() * 60 * 5}vw`,
+            left: `${Math.random() * 100}vw`,
             transform: `scale(${Math.random() * 0.3 + 0.2})`,
           },
         },
@@ -66,5 +67,5 @@ export default function BackgroundAnimation() {
     );
   }
 
-  return <div className="fixed -top-23 animate-frame">{bubbles}</div>;
+  return <div className="fixed animate-frame">{bubbles}</div>;
 }

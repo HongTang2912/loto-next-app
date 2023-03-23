@@ -37,9 +37,10 @@ a {
   margin-left: -35rem;
   margin-top: -35rem;
 }
+
 .circle-dot {
   border-radius: 50%;
-  animation: myAnimation linear infinite;
+  animation: fadingEffect linear infinite;
 }
 
 
@@ -54,18 +55,20 @@ a {
 .fade {
   animation:  fadeOut 1.2s infinite linear;
 }
+
 .fade-delay-1 {
-animation-delay: 1s;
+  animation-delay: 1s;
 }
+
 .fade-delay-2 {
-animation-delay: 2s;
+  animation-delay: 2s;
 }
 
 .spiner {
   animation: spin 2s linear infinite;
 }
 
-@keyframes myAnimation {
+@keyframes fadingEffect {
   to {
     top: 300vh;
   }
