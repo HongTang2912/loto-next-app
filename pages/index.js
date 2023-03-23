@@ -1,10 +1,11 @@
 import Head from "next/head";
 // import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import GamePlay from "../components/GamePlay";
+import GamePlay from "../components/GamePlay.js";
 import InputName from "/components/Inputname";
 import io from "socket.io-client";
 import * as React from "react";
+import configColors from "../utils/configuration/color.json";
 
 import BackgroundAnimation from "../components/Animations/BackgroundAnimation";
 
@@ -21,18 +22,7 @@ export default function Home() {
   const [player, setPlayer] = React.useState({});
   const [isMountAnimation, setIsMountAnimation] = React.useState(true);
 
-  const colors = [
-    "#e97b40",
-    "#e9cbff",
-    "#99ccdd",
-    "#a4daef",
-    "#aaddee",
-    "#009489",
-    "#fdc8c0",
-    "#8de8e8",
-    "#ac92c0",
-    "#ab92b3",
-  ];
+  const colors = configColors;
 
   const handleClickGo = (playerName, roomID) => {
     const name_roomID = {

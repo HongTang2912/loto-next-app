@@ -5,32 +5,32 @@ import React, {
   useMemo,
   useRef,
 } from "react";
+import { shuffled } from "../../utils/shuffleArray";
 import NumberFloating from "./animate";
+import configColors from "../../utils/configuration/color.json";
 
-const intervalGap = 400;
+const intervalGap = 1000;
 const limit = 15;
 
 export default function BackgroundAnimation() {
   const [bubblePropsList, setBubblePropsList] = useState([]);
-  const colors = useMemo(
-    () => [
-      "#e97b40",
-      "#e9cbff",
-      "#99ccdd",
-      "#a4daef",
-      "#aaddee",
-      "#009489",
-      "#fdc8c0",
-      "#8de8e8",
-      "#ac92c0",
-      "#ab92b3",
-    ],
-    []
-  );
+  const colors = useMemo(() => configColors, []);
+
+  const initPositions = useMemo(() => shuffled, []);
+
+  const borderBlobs = () => {
+    let array = [];
+    for (let i = 0; i < 8; i++) {
+      array.push(Math.floor(Math.random() * 60) + 40);
+    }
+    return `${array[0]}% ${array[1]}% ${array[2]}% ${array[3]}% / ${array[4]}% ${array[5]}% ${array[6]}% ${array[7]}%`;
+  };
 
   const generator = useCallback(() => {
     const mainColor = colors[Math.floor(Math.random() * colors.length)];
     setBubblePropsList((prev) => {
+      const init = initPositions[prev.length];
+
       if (prev.length >= limit) {
         clearInterval(intervalRef.current);
       }
@@ -42,8 +42,12 @@ export default function BackgroundAnimation() {
           styles: {
             animationDuration: `${Math.random() * 6 + 10}s`,
             top: 0,
-            left: `${Math.random() * 100}vw`,
-            transform: `scale(${Math.random() * 0.3 + 0.2})`,
+            left: `${init + (Math.random() * 15 - 7.5)}vw`,
+            transform: `scale(${Math.random() * 0.3 + 0.3})`,
+          },
+          blobStyle: {
+            borderRadius: borderBlobs(),
+            animation: "spin 4.2s infinite linear",
           },
         },
       ];
@@ -62,7 +66,11 @@ export default function BackgroundAnimation() {
     const bubble = bubblePropsList[i];
     bubbles.push(
       <div key={i} className="absolute circle-dot" style={bubble.styles}>
-        <NumberFloating number={bubble.number} mainColor={bubble.mainColor} />
+        <NumberFloating
+          number={bubble.number}
+          mainColor={bubble.mainColor}
+          blobStyle={bubble.blobStyle}
+        />
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function NumberFloating({ number, mainColor }) {
+export default function NumberFloating({ number, mainColor, blobStyle }) {
   return (
     <span
       className="inline-flex flex-col gap-5 scaler"
@@ -28,8 +28,8 @@ export default function NumberFloating({ number, mainColor }) {
       </span>
 
       <div
-        style={{ borderColor: mainColor }}
-        className={`flex bg-white items-center justify-center w-28 h-28 border-8 rounded-full`}
+        style={{ background: mainColor, borderColor: mainColor, ...blobStyle }}
+        className={`flex bg-white items-center justify-center w-28 h-28 border-8 text-slate-50 shadow-md`}
       >
         <p className="text-6xl font-extrabold">{number}</p>
       </div>

@@ -43,6 +43,10 @@ a {
   animation: fadingEffect linear infinite;
 }
 
+.blob-radius {
+
+}
+
 
 .pixel-font {
   font-family: "Silkscreen", cursive;
@@ -57,11 +61,11 @@ a {
 }
 
 .fade-delay-1 {
-  animation-delay: 1s;
+animation-delay: 0.8s;
 }
 
 .fade-delay-2 {
-  animation-delay: 2s;
+animation-delay: 1.6s;
 }
 
 .spiner {
@@ -71,6 +75,12 @@ a {
 @keyframes fadingEffect {
   to {
     top: 300vh;
+  }
+}
+
+@keyframes blobing {
+  to {
+    border-radius: 64% 23% 64% 13% / 63% 84% 3% 91%;
   }
 }
 
@@ -122,7 +132,7 @@ a {
   }
 
   100% {
-background: black;
+    background: black;
     height: 0;
     top: 0;
     opacity: 0;
@@ -133,4 +143,10 @@ background: black;
   100% {
     rotate: 360deg;
   }
+}
+
+@media screen and (max-width: 768px){
+    .animate-frame {
+      margin-top: -50rem;
+    }
 }
