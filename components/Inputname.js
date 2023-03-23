@@ -3,7 +3,7 @@ import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-export default function Inputname({ colors, actions }) {
+export default function Inputname({ actions }) {
   
   
   const [filled, setInputField] = React.useState(false);

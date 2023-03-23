@@ -19,13 +19,6 @@ export default function BackgroundAnimation() {
 
   const initPositions = useMemo(() => shuffled, []);
 
-  const borderBlobs = () => {
-    let array = [];
-    for (let i = 0; i < 8; i++) {
-      array.push(Math.floor(Math.random() * 60) + 40);
-    }
-    return `${array[0]}% ${array[1]}% ${array[2]}% ${array[3]}% / ${array[4]}% ${array[5]}% ${array[6]}% ${array[7]}%`;
-  };
 
   const generator = useCallback(() => {
     const mainColor = colors[Math.floor(Math.random() * colors.length)];
