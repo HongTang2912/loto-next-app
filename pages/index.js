@@ -70,8 +70,8 @@ export default function Home() {
             name="zalo-platform-site-verification"
             content="Rjkk4P-b22TAXfC8pAy0LZIikWlOqsnJDp8"
           />
-          <meta name="description" content="lottto" />
-          <meta name="description" content="Lottto" />
+          <meta name="keywords" content="lottto, Lottto, Lottto next app, next-app lotto, lotto js" />
+          <meta name="description" content="Lottto - the bingo game" />
           <link rel="icon" href="/favicon.ico" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
