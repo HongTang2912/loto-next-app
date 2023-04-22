@@ -46,9 +46,11 @@ export default function GamePlay({
     // Dispatch the "start-game" emmition to socket.io server
     socket.emit(
       "start-game",
-      actions.uniqueObjects(playersList),
-      room_id,
-      isStarted
+      {
+
+        players: playersList,
+        room: room_id,
+      }
     );
   };
 
@@ -98,12 +100,12 @@ export default function GamePlay({
     socket.on("new-user", (user) => {
       setPlayersList([...user]);
     });
-    socket.on("new-game", (game, start) => {
+    socket.on("new-game", (playerSlot) => {
       const newArr = [];
-      while (game?.length) newArr.push(game.splice(0, 5));
+      while (playerSlot.table?.length) newArr.push(playerSlot.table.splice(0, 5));
 
       setTables((prev) => [...prev, ...newArr]);
-      setStartGame(start);
+      setStartGame(true);
       setIsMountAnimation(false);
     });
     socket.on("get-number", (number, count) => {
@@ -181,13 +183,13 @@ export default function GamePlay({
               </div>
 
 
-              {!actions.uniqueObjects([...playersList])[0]?.player !=
+              {![...playersList][0]?.player !=
                 player && (
                   <Button
                     disabled={
                       end ||
                       callNumberClick ||
-                      actions.uniqueObjects([...playersList])[0]?.player != player
+                      [...playersList][0]?.player != player
                     }
                     variant="contained"
                     className={`bg-blue-500 
@@ -213,7 +215,7 @@ export default function GamePlay({
                   secondary={"welcome to room " + room_id}
                 />
               </ListItem>
-              {actions.uniqueObjects(playersList).map((p, i) => (
+              {playersList.map((p, i) => (
                 <ListItem key={i}>
                   <ListItemAvatar>
                     <Avatar>
@@ -238,9 +240,9 @@ export default function GamePlay({
                 </IconButton >
               </div>
 
-              {actions.uniqueObjects([...playersList])[0]?.player == player ? (
+              {[...playersList][0]?.player == player ? (
                 <Button
-                  disabled={actions.uniqueObjects([...playersList])?.length < 2}
+                  disabled={[...playersList]?.length < 2}
                   variant="contained"
                   className={`bg-blue-500 
                         `}

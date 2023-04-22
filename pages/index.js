@@ -26,6 +26,7 @@ export default function Home() {
 
   const handleClickGo = (playerName, roomID) => {
     const name_roomID = {
+      p_id: socket.id,
       player: playerName.current.childNodes[1].childNodes[0].value,
       room_id: roomID.current.childNodes[1].childNodes[0].value,
     };
