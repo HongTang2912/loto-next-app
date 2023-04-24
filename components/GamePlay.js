@@ -240,7 +240,7 @@ export default function GamePlay({
                 </IconButton >
               </div>
 
-              {[...playersList][0]?.player == player ? (
+              {[...playersList][0]?.id == socket.id ? (
                 <Button
                   disabled={[...playersList]?.length < 2}
                   variant="contained"
