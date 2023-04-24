@@ -189,7 +189,7 @@ export default function GamePlay({
                     disabled={
                       end ||
                       callNumberClick ||
-                      [...playersList][0]?.player != player
+                      [...playersList][0]?.id != socket.id
                     }
                     variant="contained"
                     className={`bg-blue-500 
@@ -198,7 +198,7 @@ export default function GamePlay({
                       callANumber();
                     }}
                   >
-                    <a>{"Call Number"}</a>
+                    <a>Call Number</a>
                   </Button>
                 )}
             </Stack>
