@@ -10,7 +10,7 @@ import { useContext } from "react";
 export default function Inputname({playersState, resigningState}) {
   
   const [filled, setInputField] = React.useState(false);
-  const {socket, setSocket} = useContext(SocketContext);
+  const {socket} = useContext(SocketContext);
 
   const playerName = React.useRef();
   const roomID = React.useRef();

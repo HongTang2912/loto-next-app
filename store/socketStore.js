@@ -16,7 +16,7 @@ const SocketContext = createContext();
     },[])
 
     return (
-       <SocketContext.Provider value={{socket, setSocket}}>
+        <SocketContext.Provider value={{socket, setSocket}}>
             {children}
         </SocketContext.Provider>
     )

@@ -38,7 +38,8 @@ export default function GamePlay({
 
   const LottoTable = useRef();
 
-   const {socket, setSocket} = useContext(SocketContext);
+  const {socket} = useContext(SocketContext);
+  console.log(tables);
 
   const UnResigned = () => {
     socket.emit("remove-user", { id: socket.id, room_id });
@@ -101,26 +102,29 @@ export default function GamePlay({
 
   // Dispatch an action when socket's instances were changed
   useEffect(() => {
-    socket.on("new-user", (user) => {
-      setPlayersList([...user]);
-    });
-    socket.on("new-game", (playerSlot) => {
-      const newArr = [];
-      while (playerSlot.table?.length) newArr.push(playerSlot.table.splice(0, 5));
-      setTables((prev) => [...prev, ...newArr]);
-      setStartGame(true);
-      setIsMountAnimation(false);
-    });
-    socket.on("get-number", (number, count) => {
-      setNewNumber(number[count]);
-      setListCalledNumber(number);
-    });
+    try{
+      socket.on("new-user", (user) => {
+        setPlayersList([...user]);
+      });
+      socket.on("new-game", (playerSlot) => {
+        setTables((prev) => [...prev, ...playerSlot.table.splice(0, 5)])
+         
+        setStartGame(true);
+        setIsMountAnimation(false);
+      });
+      socket.on("get-number", (number, count) => {
+        setNewNumber(number[count]);
+        setListCalledNumber(number);
+      });
 
-    socket.on("the-winner", (winner) => {
-      setWon(true);
-      setEnd(true);
-      setWinner(winner);
-    });
+      socket.on("the-winner", (winner) => {
+        setWon(true);
+        setEnd(true);
+        setWinner(winner);
+      });
+    } catch(err ) {
+      console.log(err);
+    }
   }, [socket]);
 
   return (
@@ -149,7 +153,7 @@ export default function GamePlay({
                   <Dialog open={isWon} body={winner} />
                 </div>
                 <div className={`p-3 w-fit`}>
-                  {tables[0]?.map((items, index) => {
+                  {tables?.map((items, index) => {
                     return (
                       <div
                         className="flex items-center justify-between"
