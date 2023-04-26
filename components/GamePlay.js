@@ -9,19 +9,21 @@ import ImageIcon from '@mui/icons-material/Image';
 import Stack from '@mui/material/Stack';
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
-
-
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+
 
 import Dialog from "/utils/Dialog";
 
+
+import { SocketContext} from '../store/socketStore';
+import { useContext } from "react";
+
 export default function GamePlay({
-  socket,
   room_id,
   player,
   color,
-  actions,
   setIsMountAnimation,
+  resigningState
 }) {
   const [winner, setWinner] = useState("");
   const [isWon, setWon] = useState(false);
@@ -36,9 +38,12 @@ export default function GamePlay({
 
   const LottoTable = useRef();
 
+   const {socket, setSocket} = useContext(SocketContext);
+
   const UnResigned = () => {
-    socket.emit("remove-user", { player, room_id });
-    window.location.reload();
+    socket.emit("remove-user", { id: socket.id, room_id });
+    resigningState.setResigned(false);
+    // window.location.reload();
   };
 
   // Start game function
@@ -47,7 +52,6 @@ export default function GamePlay({
     socket.emit(
       "start-game",
       {
-
         players: playersList,
         room: room_id,
       }
@@ -103,7 +107,6 @@ export default function GamePlay({
     socket.on("new-game", (playerSlot) => {
       const newArr = [];
       while (playerSlot.table?.length) newArr.push(playerSlot.table.splice(0, 5));
-
       setTables((prev) => [...prev, ...newArr]);
       setStartGame(true);
       setIsMountAnimation(false);

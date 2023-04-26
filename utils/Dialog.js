@@ -15,11 +15,8 @@ export default function AlertDialogSlide({ open, body }) {
                         <div key={i}>
                             <Stack sx={{ width: '100%' }}
                                 spacing={2}
-
                             >
-
                                 <Alert severity="success" className={`text-xl font-bold`}>{`The winner is ${b}`}</Alert>
-
                             </Stack >
                         </div>
                         </>
@@ -28,6 +25,5 @@ export default function AlertDialogSlide({ open, body }) {
             }
 
         </>
-
     );
 }
