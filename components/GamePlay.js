@@ -20,7 +20,7 @@ import { useContext } from "react";
 
 export default function GamePlay({
   room_id,
-  player,
+  user,
   color,
   setIsMountAnimation,
   resigningState
@@ -60,7 +60,7 @@ export default function GamePlay({
   };
 
   const callANumber = () => {
-    socket.emit("call-number", room_id, count, player, room_id);
+    socket.emit("call-number", room_id, count, user.id, room_id);
     setCount(count + 1);
 
     setCallNumberClick(true);
@@ -76,6 +76,7 @@ export default function GamePlay({
   // Click to select the number which has appeared on the called numbers array
   const handleClickNumber = (num) => {
     let element = LottoTable.current.querySelector(`div div#sub-table-${num}`);
+   
     if (listCalledNumber.includes(num) && element) {
       element.style.animationName = "zoomBig";
       element.style.animationDuration = "0.5s";
@@ -84,18 +85,31 @@ export default function GamePlay({
       element.style.color = "#fff";
       element.id = "bingo";
 
+      const rowNumbers = Array.prototype.map.call(
+        element.parentNode.childNodes,
+        (ele) => {
+          if (ele.id === "bingo") {
+            
+            return ele.innerHTML;
+          }
+          
+        }
+      );
       const isBingo = Array.prototype.every.call(
         element.parentNode.childNodes,
         (ele) => {
           if (ele.id === "bingo") {
+
             return true;
           }
           return false;
         }
       );
 
+   
+
       if (isBingo) {
-        socket.emit("end-game", player, room_id);
+        socket.emit("end-game", {winner: user.player, room_id, rowNumbers});
       }
     }
   };
@@ -104,7 +118,7 @@ export default function GamePlay({
   useEffect(() => {
     try{
       socket.on("new-user", (user) => {
-        setPlayersList([...user]);
+        setPlayersList(user !== null ? [...user] : []);
       });
       socket.on("new-game", (playerSlot) => {
         if (playerSlot.table.length != 0) {
@@ -119,10 +133,12 @@ export default function GamePlay({
         setListCalledNumber(number);
       });
 
-      socket.on("the-winner", (winner) => {
+      socket.on("the-winner", (winnerArray) => {
         setWon(true);
         setEnd(true);
-        setWinner(winner);
+        setWinner(
+          winnerArray
+        );
       });
     } catch(err ) {
       console.log(err);
@@ -139,14 +155,14 @@ export default function GamePlay({
         {isStarted ? (
           <>
             <div className={`text-8xl pixel-font`} style={{ color: color }}>
-              {newNumber}
+              {newNumber ?? "#"}
             </div>
             <div className={`relative flex justify-center flex-col`}>
               <div
                 className={`text-clip text-2xl pixel-font w-fit`}
                 style={{ color: color }}
               >
-                {player}
+                {user.player}
               </div>
               <div className={`flex justify-center`}>
                 <div
@@ -219,7 +235,7 @@ export default function GamePlay({
             >
               <ListItem>
                 <ListItemText
-                  primary={"Hello " + player}
+                  primary={"Hello " + user.player}
                   secondary={"welcome to room " + room_id}
                 />
               </ListItem>
