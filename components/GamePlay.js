@@ -39,7 +39,7 @@ export default function GamePlay({
   const LottoTable = useRef();
 
   const {socket} = useContext(SocketContext);
-  console.log(tables);
+  
 
   const UnResigned = () => {
     socket.emit("remove-user", { id: socket.id, room_id });
@@ -107,7 +107,9 @@ export default function GamePlay({
         setPlayersList([...user]);
       });
       socket.on("new-game", (playerSlot) => {
-        setTables((prev) => [...prev, ...playerSlot.table.splice(0, 5)])
+        if (playerSlot.table.length != 0) {
+          setTables(playerSlot.table);
+        }
          
         setStartGame(true);
         setIsMountAnimation(false);
@@ -190,8 +192,7 @@ export default function GamePlay({
               </div>
 
 
-              {![...playersList][0]?.player !=
-                player && (
+              {!(playersList[0]?.id != socket.id) && (
                   <Button
                     disabled={
                       end ||

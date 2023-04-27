@@ -11,15 +11,13 @@ export default function AlertDialogSlide({ open, body }) {
                 open &&
                 (
                     [...new Set(body)]?.map((b, i) => (
-                        <>
                         <div key={i}>
                             <Stack sx={{ width: '100%' }}
                                 spacing={2}
                             >
-                                <Alert severity="success" className={`text-xl font-bold`}>{`The winner is ${b}`}</Alert>
+                                <Alert severity="success" className={`text-3xl font-bold`}>The winner is <b>{b}</b></Alert>
                             </Stack >
                         </div>
-                        </>
                     ))
                 )
             }

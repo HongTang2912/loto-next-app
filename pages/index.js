@@ -10,7 +10,7 @@ import BackgroundAnimation from "../components/Animations/BackgroundAnimation";
 
 
 
-
+import {SocketTemplate} from "../store/socketStore";
 
 
 export default function Home() {
@@ -25,7 +25,7 @@ export default function Home() {
   
 
   return (
-    <>
+    <SocketTemplate>
       <div
         className={`${styles.container} flex flex-col gap-2 items-center h-screen justify-center`}
       >
@@ -71,6 +71,6 @@ export default function Home() {
         </div>
       </div>
       {isMountAnimation && <BackgroundAnimation />}
-    </>
+    </SocketTemplate>
   );
 }
