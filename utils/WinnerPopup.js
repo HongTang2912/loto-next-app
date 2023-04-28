@@ -31,7 +31,7 @@ export default function WinnerPopup({ body }) {
 
   return (
     <div className="text-center">
-      <button className='rounded-bl-xl bg-green-500 text-white p-2 text-3xl' onClick={handleClickOpen}>
+      <button className='rounded-l-xl bg-green-500 text-white p-2 text-3xl' onClick={handleClickOpen}>
         <RiTodoLine/>
       </button>
       <Dialog
