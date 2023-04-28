@@ -43,10 +43,10 @@ export default function WinnerPopup({ body }) {
         aria-describedby="alert-dialog-slide-description"
         maxWidth="1000"
       >
-        <DialogTitle>The winner is <b>{body[0].winner}</b></DialogTitle>
+        <DialogTitle><div className='lg:text-4xl sm:text-2xl'>The winner is <b>{body[0].winner}</b></div></DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            <div className='flex gap-2 lg:text-4xl sm:text-2xl'>
+            <div className='flex gap-2 lg:text-4xl sm:text-2xl justify-center'>
             {
                 body[0].winnerNumbers.map((n,index) => (
                     <div 
