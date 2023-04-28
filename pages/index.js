@@ -3,11 +3,9 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import GamePlay from "../components/GamePlay.js";
 import InputName from "/components/Inputname";
-import io from "socket.io-client";
 import * as React from "react";
 import configColors from "../utils/configuration/colors.json";
 import BackgroundAnimation from "../components/Animations/BackgroundAnimation";
-
 
 
 import {SocketTemplate} from "../store/socketStore";

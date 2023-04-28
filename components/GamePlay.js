@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 
 
-import Dialog from "/utils/Dialog";
+import Dialog from "/utils/WinnerPopup";
 
 
 import { SocketContext} from '../store/socketStore';
@@ -75,6 +75,7 @@ export default function GamePlay({
 
   // Click to select the number which has appeared on the called numbers array
   const handleClickNumber = (num) => {
+    if(!isWon){
     let element = LottoTable.current.querySelector(`div div#sub-table-${num}`);
    
     if (listCalledNumber.includes(num) && element) {
@@ -111,7 +112,7 @@ export default function GamePlay({
       if (isBingo) {
         socket.emit("end-game", {winner: user.player, room_id, rowNumbers});
       }
-    }
+    }}
   };
 
   // Dispatch an action when socket's instances were changed
@@ -149,11 +150,16 @@ export default function GamePlay({
     <>
       <div
         id="lotto-table"
-        className="flex flex-col items-center gap-4"
+        className="relative flex flex-col items-center gap-4"
         ref={LottoTable}
       >
         {isStarted ? (
           <>
+            {isWon && <div
+              className={`absolute border-none top-0 right-0 opacity-80 h-full `}
+            >
+              <Dialog isWon={isWon} body={winner} />
+            </div>}
             <div className={`text-8xl pixel-font`} style={{ color: color }}>
               {newNumber ?? "#"}
             </div>
@@ -164,12 +170,8 @@ export default function GamePlay({
               >
                 {user.player}
               </div>
-              <div className={`flex justify-center`}>
-                <div
-                  className={`absolute top-0 opacity-80 h-full flex flex-col justify-center`}
-                >
-                  <Dialog open={isWon} body={winner} />
-                </div>
+              <div className={``}>
+              
                 <div className={`p-3 w-fit`}>
                   {tables?.map((items, index) => {
                     return (
@@ -224,20 +226,33 @@ export default function GamePlay({
                   >
                     <a>Call Number</a>
                   </Button>
+                  
                 )}
+                
             </Stack>
+             
           </>
         ) : (
           <>
             <List
               sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
               id="list"
+              
             >
               <ListItem>
-                <ListItemText
+                {/* <ListItemText
                   primary={"Hello " + user.player}
                   secondary={"welcome to room " + room_id}
-                />
+                /> */}
+                <div className="sm:text-xl md:text-2xl text-lg">
+
+                  <div className="block mb-2 italic font-bold">Hello lotter <b className="bg-blue-200 text-blue-600 p-1 rounded-md">{user.player}</b></div>
+                  <div className="block ">Room: <mark 
+                      className="bg-blue-200 text-blue-600 p-1 rounded-md"
+                    >
+                      {room_id}
+                    </mark></div>
+                </div>
               </ListItem>
               {playersList.map((p, i) => (
                 <ListItem key={i}>
@@ -276,9 +291,11 @@ export default function GamePlay({
                 >
                   <a>START!</a>
                 </Button>
+                
               ) : (
                 <></>
               )}
+              
             </Stack>
           </>
         )
