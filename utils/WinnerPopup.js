@@ -31,7 +31,7 @@ export default function WinnerPopup({ body }) {
 
   return (
     <div className="text-center">
-      <button className='rounded-l-full bg-green-500 text-white p-2 text-3xl' onClick={handleClickOpen}>
+      <button className='rounded-l-full bg-yellow-500 text-white p-2 text-3xl' onClick={handleClickOpen}>
         <FaCrown/>
       </button>
       <Dialog
