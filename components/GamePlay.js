@@ -163,14 +163,14 @@ export default function GamePlay({
             <div className={`text-8xl pixel-font`} style={{ color: color }}>
               {newNumber ?? "#"}
             </div>
-            <div className={`relative flex justify-center flex-col`}>
+            <div className={`relative flex justify-center flex-col items-center`}>
               <div
-                className={`text-clip text-2xl pixel-font w-fit`}
+                className={`text-clip  text-2xl pixel-font w-fit`}
                 style={{ color: color }}
               >
                 {user.player}
               </div>
-              <div className={``}>
+              <div id="table">
               
                 <div className={`p-3 w-fit`}>
                   {tables?.map((items, index) => {
@@ -184,7 +184,7 @@ export default function GamePlay({
                             <div
                               onClick={() => handleClickNumber(subItems)}
                               key={sIndex}
-                              className="w-16 p-3 m-1 text-4xl font-semibold text-center rounded-full "
+                              className="noselect w-16 p-3 m-1 text-4xl font-semibold text-center rounded-full "
                               id={`sub-table-${subItems}`}
                             >
                               {subItems}

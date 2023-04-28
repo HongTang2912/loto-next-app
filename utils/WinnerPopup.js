@@ -8,6 +8,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 // import { TransitionProps } from '@mui/material/transitions';
 
+import {AiFillStar} from 'react-icons/ai'
+
 const Transition = React.forwardRef(function Transition(
   props,
   ref
@@ -15,7 +17,7 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function WinnerPopup({ isWon, body }) {
+export default function WinnerPopup({ body }) {
   const [open, setOpen] = React.useState(true);
   
 
@@ -28,10 +30,10 @@ export default function WinnerPopup({ isWon, body }) {
   };
 
   return (
-    <div class="text-center">
-      <Button onClick={handleClickOpen}>
-        Show Winner
-      </Button>
+    <div className="text-center">
+      <button className='rounded-bl-xl bg-green-500 text-white p-2 text-3xl' onClick={handleClickOpen}>
+        <AiFillStar/>
+      </button>
       <Dialog
         
         open={open}
@@ -44,10 +46,13 @@ export default function WinnerPopup({ isWon, body }) {
         <DialogTitle>The winner is <b>{body[0].winner}</b></DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            <div className='flex gap-2 lg:text-3xl sm:text-2xl'>
+            <div className='flex gap-2 lg:text-4xl sm:text-2xl'>
             {
-                body[0].winnerNumbers.map((n) => (
-                    <div class="lg:h-20 lg:w-20 sm:h-16 sm:w-16 h-8 w-8 rounded-full bg-green-200 text-green-500 flex justify-center items-center">
+                body[0].winnerNumbers.map((n,index) => (
+                    <div 
+                        key={index} 
+                        className="lg:h-28 lg:w-28 sm:h-16 sm:w-16 h-8 w-8 rounded-full bg-green-200 text-green-500 flex justify-center items-center"
+                    >
                         {n}
                     </div>
                 ))

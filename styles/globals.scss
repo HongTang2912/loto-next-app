@@ -32,6 +32,14 @@ a {
   }
 }
 
+@media screen and (max-width: 400px) {
+  
+  #table {
+    transform: scale(1);
+    width: 100vw;
+  }
+}
+
 .animate-frame {
   transform: rotate(-45deg);
   margin-left: -35rem;
@@ -67,6 +75,22 @@ animation-delay: 0.8s;
 
 .fade-delay-2 {
 animation-delay: 1.6s;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
 }
 
 
@@ -143,8 +167,14 @@ animation-delay: 1.6s;
   }
 }
 
+
+
 @media screen and (max-width: 768px){
-    .animate-frame {
-      margin-top: -50rem;
-    }
+  .animate-frame {
+    margin-top: -50rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+ 
 }
