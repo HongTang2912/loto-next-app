@@ -8,7 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 // import { TransitionProps } from '@mui/material/transitions';
 
-import {AiFillStar} from 'react-icons/ai'
+import {RiTodoLine} from 'react-icons/ri'
 
 const Transition = React.forwardRef(function Transition(
   props,
@@ -32,7 +32,7 @@ export default function WinnerPopup({ body }) {
   return (
     <div className="text-center">
       <button className='rounded-bl-xl bg-green-500 text-white p-2 text-3xl' onClick={handleClickOpen}>
-        <AiFillStar/>
+        <RiTodoLine/>
       </button>
       <Dialog
         
