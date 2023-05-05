@@ -56,7 +56,7 @@ export default function BackgroundAnimation() {
   for (let i = 0; i < bubblePropsList.length; i++) {
     const bubble = bubblePropsList[i];
     bubbles.push(
-      <div key={i} className="absolute circle-dot" style={bubble.styles}>
+      <div key={i} className="absolute circle-dot pixel-font drop-shadow-lg" style={bubble.styles}>
         <NumberFloating
           number={bubble.number}
           mainColor={bubble.mainColor}
