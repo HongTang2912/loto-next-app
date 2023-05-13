@@ -169,7 +169,7 @@ export default function GamePlay({
               <Dialog isWon={isWon} body={winner} />
             </div>}
             <div className={`text-8xl pixel-font`} style={{ color: color }}>
-              {newNumber ?? "#"}
+              {newNumber ? newNumber : "#"}
             </div>
             <div className={`relative flex justify-center flex-col items-center`}>
               <div
