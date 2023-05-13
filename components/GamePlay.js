@@ -130,7 +130,7 @@ export default function GamePlay({
         if (playerSlot.table.length != 0) {
           setTables(playerSlot.table);
         }
-        setCount(0);
+        setCount(-1);
         setWon(false);
         setStartGame(true);
         setIsMountAnimation(false);
