@@ -34,7 +34,7 @@ export default function GamePlay({
   const [playersList, setPlayersList] = useState([]);
   const [tables, setTables] = useState([]);
   const [isStarted, setStartGame] = useState(false);
-  const [count, setCount] = useState(-1);
+  const [count, setCount] = useState(0);
   const [callNumberClick, setCallNumberClick] = useState(false);
   const [listCalledNumber, setListCalledNumber] = useState([]);
 
@@ -110,8 +110,6 @@ export default function GamePlay({
         }
       );
 
-   
-
       if (isBingo) {
         socket.emit("end-game", {winner: user.player, room_id, rowNumbers});
       }
@@ -130,7 +128,7 @@ export default function GamePlay({
         if (playerSlot.table.length != 0) {
           setTables(playerSlot.table);
         }
-        setCount(-1);
+
         setWon(false);
         setStartGame(true);
         setIsMountAnimation(false);
