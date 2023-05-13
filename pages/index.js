@@ -10,6 +10,8 @@ import BackgroundAnimation from "../components/Animations/BackgroundAnimation";
 
 import {SocketTemplate} from "../store/socketStore";
 
+const pjson = require('../package.json');
+
 
 export default function Home() {
   const [isResigned, setResigned] = React.useState(false);
@@ -65,6 +67,9 @@ export default function Home() {
           )}
         </>
       </div>
+       <div className="fixed bottom-0 right-0 p-3 text-center text-gray-400">
+          Lottto.io version {pjson.version} | By Thomas Tang
+        </div>
       {isMountAnimation && <BackgroundAnimation />}
     </SocketTemplate>
   );
