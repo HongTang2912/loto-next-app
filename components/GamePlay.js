@@ -85,6 +85,7 @@ export default function GamePlay({
       element.style.backgroundColor = color;
       element.style.color = "#fff";
       element.id = "bingo";
+      new Audio('../media/audio/pop-thock.mp3').play();
 
       const rowNumbers = Array.prototype.map.call(
         element.parentNode.childNodes,
@@ -111,8 +112,15 @@ export default function GamePlay({
 
       if (isBingo) {
         socket.emit("end-game", {winner: user.player, room_id, rowNumbers});
+        new Audio('../media/audio/reward.mp3').play();
       }
-    }}
+    }
+    else {
+      new Audio('../media/audio/pop-spread.mp3').play();
+    }
+    } else {
+      new Audio('../media/audio/pop-spread.mp3').play();
+    }
   };
 
   // Dispatch an action when socket's instances were changed
