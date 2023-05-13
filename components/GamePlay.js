@@ -10,6 +10,7 @@ import Stack from '@mui/material/Stack';
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+import {SiOpenmined} from "react-icons/si"
 
 
 import Dialog from "/utils/WinnerPopup";
@@ -23,7 +24,8 @@ export default function GamePlay({
   user,
   color,
   setIsMountAnimation,
-  resigningState
+  resigningState,
+  playersState
 }) {
   const [winner, setWinner] = useState("");
   const [isWon, setWon] = useState(false);
@@ -169,7 +171,14 @@ export default function GamePlay({
             {isWon && <div
               className={`absolute border-none top-0 right-0 opacity-80 h-full `}
             >
-              <Dialog isWon={isWon} body={winner} />
+              <Dialog 
+              isWon={isWon} 
+              body={winner}
+              resigningState={{setResigned: resigningState.setResigned}} 
+              playersState={{setPlayer: playersState.setPlayer}} 
+              player={user}
+              setStartGame={setStartGame}
+              />
             </div>}
             <div className={`text-8xl pixel-font`} style={{ color: color }}>
               {newNumber ? newNumber : "#"}
@@ -246,44 +255,61 @@ export default function GamePlay({
         ) : (
           <>
             <List
-              sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+              sx={{  maxWidth: 360, bgcolor: "background.paper"}}
               id="list"
               
             >
-              <ListItem>
+              <ListItem className="flex flex-col items-center">
                 {/* <ListItemText
                   primary={"Hello " + user.player}
                   secondary={"welcome to room " + room_id}
                 /> */}
-                <div className="sm:text-xl md:text-2xl text-lg">
+                <div className="sm:text-xl md:text-2xl text-lg text-center mb-4">
 
-                  <div className="block mb-2 italic font-bold">Hello lotter <b className="bg-blue-200 text-blue-600 p-1 rounded-md">{user.player}</b></div>
-                  <div className="block ">Room: <mark 
-                      className="bg-blue-200 text-blue-600 p-1 rounded-md"
+                  {/* <div className="block mb-2 italic font-bold">Hello lotter <b className="bg-blue-200 text-blue-600 p-1 rounded-md">{user.player}</b></div> */}
+                  <div className="block ">Room <mark 
+                      className="bg-yellow-200 text-yellow-600 p-1 rounded-md"
                     >
                       {room_id}
                     </mark></div>
                 </div>
               </ListItem>
-              {playersList.map((p, i) => (
-                <ListItem key={i}>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <ImageIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary={p.player} />
-                </ListItem>
-              ))}
+              <ListItem> <ul className="flex gap-2 md:w-[800px] flex-wrap justify-center">
+
+                {playersList.map((p, i) => (
+                  // <ListItemAvatar>
+                  //   {/* <Avatar>
+                  //     <ImageIcon />
+                  //   </Avatar> */}
+                  //    <div className="block mb-2 italic font-bold"><b className="bg-blue-200 text-blue-600 p-1 rounded-md">{user.player}</b></div>
+                  // </ListItemAvatar>
+                  // <ListItemText primary={p.player} />
+                    user.player == p.player ?
+                  <li key={i} className="py-1">
+                    
+                    <div className="block mb-2 italic font-bold">
+                      <b className="bg-orange-200 text-orange-600 p-2 rounded-md text-md sm:text-xl">
+                        {p.player}
+                      </b>
+                      </div>
+                  </li>
+                  :
+                   <li key={i} className="py-1">
+                    <div className="block mb-2 italic font-bold"><b className="bg-blue-200 text-blue-600 p-2 rounded-md text-md sm:text-xl">{p.player}</b></div>
+                  </li>
+                ))}
+              </ul>
+              </ListItem>
             </List>
             <Stack direction="row" spacing={2}>
 
 
-              <div className="border-2 border-red-500 rounded-full">
+              <div className="bg-red-400 text-red-300 p-1 rounded-full">
 
                 <IconButton
 
-                  color="error"
+                  // color="error"
+                 
                   onClick={() => UnResigned()}
                 >
                   <KeyboardReturnIcon />

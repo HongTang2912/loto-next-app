@@ -10,8 +10,8 @@ import NumberFloating from "./animate";
 import configColors from "../../utils/configuration/colors.json";
 import { blobs } from "../../utils/configuration/blobs";
 
-const intervalGap = 1000;
-const limit = 15;
+const intervalGap = 3000;
+const limit = 10;
 
 export default function BackgroundAnimation() {
   const [bubblePropsList, setBubblePropsList] = useState([]);

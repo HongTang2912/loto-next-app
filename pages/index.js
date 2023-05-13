@@ -16,11 +16,7 @@ export default function Home() {
   const [player, setPlayer] = React.useState({});
   const [isMountAnimation, setIsMountAnimation] = React.useState(true);
 
-  
- 
   const colors = configColors;
-
-  
 
   return (
     <SocketTemplate>
@@ -58,6 +54,7 @@ export default function Home() {
           ) : (
             <>
               <GamePlay
+                playersState={{setPlayer}}
                 resigningState={{setResigned}} 
                 setIsMountAnimation={setIsMountAnimation}
                 user={player}

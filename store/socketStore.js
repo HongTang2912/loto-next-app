@@ -7,9 +7,6 @@ const SocketContext = createContext();
 const SocketTemplate = ({children}) => {
     const [socket, setSocket] = useState(null);
 
-
-    
-
     useEffect(() => {
        
         setSocket(io.connect(url, {
