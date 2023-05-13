@@ -85,8 +85,8 @@ export default function GamePlay({
       element.style.backgroundColor = color;
       element.style.color = "#fff";
       element.id = "bingo";
-      new Audio('../media/audio/pop-thock.mp3').play();
-
+      const audio  = new Audio('../media/audio/pop-thock.mp3');
+      audio.play();
       const rowNumbers = Array.prototype.map.call(
         element.parentNode.childNodes,
         (ele) => {
@@ -112,14 +112,17 @@ export default function GamePlay({
 
       if (isBingo) {
         socket.emit("end-game", {winner: user.player, room_id, rowNumbers});
-        new Audio('../media/audio/reward.mp3').play();
+        const audio  = new Audio('../media/audio/reward.mp3');
+        audio.play();
       }
     }
     else {
-      new Audio('../media/audio/pop-spread.mp3').play();
+        const audio  = new Audio('../media/audio/pop-spread.mp3');
+        audio.play();
     }
     } else {
-      new Audio('../media/audio/pop-spread.mp3').play();
+       const audio  = new Audio('../media/audio/pop-spread.mp3');
+        audio.play();
     }
   };
 
