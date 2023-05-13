@@ -320,8 +320,7 @@ export default function GamePlay({
                 <Button
                   disabled={[...playersList]?.length < 2}
                   variant="contained"
-                  className={`bg-blue-500 
-                        `}
+                  className={`bg-blue-500 `}
                   onClick={() => {
                     startTheGame();
                   }}
