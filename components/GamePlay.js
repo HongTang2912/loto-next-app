@@ -29,7 +29,7 @@ export default function GamePlay({
 }) {
   const [winner, setWinner] = useState("");
   const [isWon, setWon] = useState(false);
-  const [end, setEnd] = useState(false);
+  // const [end, setEnd] = useState(false);
   const [newNumber, setNewNumber] = useState(0);
   const [playersList, setPlayersList] = useState([]);
   const [tables, setTables] = useState([]);
@@ -114,18 +114,10 @@ export default function GamePlay({
 
       if (isBingo) {
         socket.emit("end-game", {winner: user.player, room_id, rowNumbers});
-        const audio  = new Audio('../media/audio/reward.mp3');
-        audio.play();
       }
     }
-    else {
-        const audio  = new Audio('../media/audio/pop-spread.mp3');
-        audio.play();
-    }
-    } else {
-       const audio  = new Audio('../media/audio/pop-spread.mp3');
-        audio.play();
-    }
+   
+  }
   };
 
   // Dispatch an action when socket's instances were changed
@@ -138,7 +130,8 @@ export default function GamePlay({
         if (playerSlot.table.length != 0) {
           setTables(playerSlot.table);
         }
-         
+        setCount(0);
+        setWon(false);
         setStartGame(true);
         setIsMountAnimation(false);
       });
@@ -149,7 +142,7 @@ export default function GamePlay({
 
       socket.on("the-winner", (winnerArray) => {
         setWon(true);
-        setEnd(true);
+        // setEnd(true);
         setWinner(
           winnerArray
         );
@@ -178,6 +171,9 @@ export default function GamePlay({
               playersState={{setPlayer: playersState.setPlayer}} 
               player={user}
               setStartGame={setStartGame}
+              // setWon={setWon}
+              UnResigned={UnResigned}
+              // setCount={setCount}
               />
             </div>}
             <div className={`text-8xl pixel-font`} style={{ color: color }}>
@@ -233,7 +229,7 @@ export default function GamePlay({
               {!(playersList[0]?.id != socket.id) && (
                   <Button
                     disabled={
-                      end ||
+                      isWon ||
                       callNumberClick ||
                       [...playersList][0]?.id != socket.id
                     }
