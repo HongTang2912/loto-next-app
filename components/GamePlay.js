@@ -155,7 +155,7 @@ export default function GamePlay({
     <>
       <div
         id="lotto-table"
-        className="relative flex flex-col items-center gap-4"
+        className="relative flex flex-col items-center gap-4 z-10"
         ref={LottoTable}
       >
         {isStarted ? (
@@ -284,14 +284,14 @@ export default function GamePlay({
                   <li key={i} className="py-1">
                     
                     <div className="block mb-2 italic font-bold">
-                      <b className="bg-orange-200 text-orange-600 p-2 rounded-md text-md sm:text-xl">
+                      <b className="bg-orange-200 text-orange-600 py-2 px-3 rounded-full text-md sm:text-xl">
                         {p.player}
                       </b>
                       </div>
                   </li>
                   :
                    <li key={i} className="py-1">
-                    <div className="block mb-2 italic font-bold"><b className="bg-blue-200 text-blue-600 p-2 rounded-md text-md sm:text-xl">{p.player}</b></div>
+                    <div className="block mb-2 italic font-bold"><b className="bg-blue-200 text-blue-600 py-2 px-3 rounded-full text-md sm:text-xl">{p.player}</b></div>
                   </li>
                 ))}
               </ul>
