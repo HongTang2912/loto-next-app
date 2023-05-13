@@ -34,7 +34,7 @@ export default function GamePlay({
   const [playersList, setPlayersList] = useState([]);
   const [tables, setTables] = useState([]);
   const [isStarted, setStartGame] = useState(false);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(-1);
   const [callNumberClick, setCallNumberClick] = useState(false);
   const [listCalledNumber, setListCalledNumber] = useState([]);
 
@@ -134,6 +134,7 @@ export default function GamePlay({
         setWon(false);
         setStartGame(true);
         setIsMountAnimation(false);
+        setNewNumber(0)
       });
       socket.on("get-number", (number, count) => {
         setNewNumber(number[count]);
