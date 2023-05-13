@@ -128,10 +128,10 @@ export default function GamePlay({
         if (playerSlot.table.length != 0) {
           setTables(playerSlot.table);
         }
-
         setWon(false);
         setStartGame(true);
         setIsMountAnimation(false);
+        setCount(0);
         setNewNumber(0)
       });
       socket.on("get-number", (number, count) => {
@@ -170,6 +170,7 @@ export default function GamePlay({
               playersState={{setPlayer: playersState.setPlayer}} 
               player={user}
               setStartGame={setStartGame}
+              setIsMountAnimation={setIsMountAnimation}
               // setWon={setWon}
               UnResigned={UnResigned}
               // setCount={setCount}

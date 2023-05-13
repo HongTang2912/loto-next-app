@@ -53,6 +53,7 @@ export default function WinnerPopup({ body,player,
     resigningState.setResigned(true);
     playersState.setPlayer(name_roomID);
     setStartGame(false)
+    setIsMountAnimation(true)
   }
 
   return (
