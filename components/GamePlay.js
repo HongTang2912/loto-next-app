@@ -255,9 +255,9 @@ export default function GamePlay({
         ) : (
           <>
             <List
-              sx={{  maxWidth: 360, bgcolor: "background.paper"}}
+              sx={{ bgcolor: "background.paper" }}
               id="list"
-              
+                className="md:max-w-[800px]"
             >
               <ListItem className="flex flex-col items-center">
                 {/* <ListItemText
@@ -274,7 +274,7 @@ export default function GamePlay({
                     </mark></div>
                 </div>
               </ListItem>
-              <ListItem> <ul className="flex gap-2 md:w-[800px] flex-wrap justify-center">
+              <ListItem> <ul className="flex gap-2 flex-wrap justify-center ">
 
                 {playersList.map((p, i) => (
                   // <ListItemAvatar>

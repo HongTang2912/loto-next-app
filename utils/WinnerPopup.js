@@ -87,8 +87,8 @@ export default function WinnerPopup({ body,player,
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-           <Button type='contained' onClick={handleRejoin}>Re-join?</Button>
-          <Button onClick={handleClose}>OK</Button>
+           <Button onClick={handleRejoin}>Re-join?</Button>
+          <Button onClick={handleClose} variant='outlined'>OK</Button>
         </DialogActions>
       </Dialog>
     </div>

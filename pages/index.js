@@ -44,7 +44,7 @@ export default function Home() {
           />
         </Head>
 
-        <div className="z-50">
+        <>
           {!isResigned ? (
             <InputName 
               playersState={{setPlayer}}
@@ -63,7 +63,7 @@ export default function Home() {
               />
             </>
           )}
-        </div>
+        </>
       </div>
       {isMountAnimation && <BackgroundAnimation />}
     </SocketTemplate>
