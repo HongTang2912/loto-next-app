@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }) {
   return (
       <>
         <Component {...pageProps} />
-        <div className="sticky bottom-0 right-0 p-3 text-center text-gray-400">
+        <div className="absolute bottom-0 right-0 p-3 text-center text-gray-400">
           Lottto.io version {pjson.version} | By Thomas Tang
         </div>
       </>
