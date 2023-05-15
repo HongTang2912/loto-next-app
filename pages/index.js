@@ -58,7 +58,7 @@ export default function Home() {
               <GamePlay
                 playersState={{setPlayer}}
                 resigningState={{setResigned}} 
-                setIsMountAnimation={setIsMountAnimation}
+                setIsMountAnimation={setIsMountAnimation }
                 user={player}
                 room_id={player.room_id}
                 color={colors[Math.floor(Math.random() * 9)]}
