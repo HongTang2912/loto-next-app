@@ -23,7 +23,7 @@ const Transition = forwardRef(function Transition(
 export default function WinnerPopup({ body,player,
   resigningState,
   setStartGame,
-  playersState }) {
+  playersState,setIsMountAnimation }) {
   const [open, setOpen] = useState(true);
 
   const {socket} = useContext(SocketContext);
