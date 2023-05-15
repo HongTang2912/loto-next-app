@@ -160,26 +160,31 @@ export default function GamePlay({
       >
         {isStarted ? (
           <>
-            {isWon && <div
-              className={`absolute border-none top-0 right-0 opacity-80 h-full `}
-            >
-              <Dialog 
-              isWon={isWon} 
-              body={winner}
-              resigningState={{setResigned: resigningState.setResigned}} 
-              playersState={{setPlayer: playersState.setPlayer}} 
-              player={user}
-              setStartGame={setStartGame}
-              setIsMountAnimation={setIsMountAnimation}
-              // setWon={setWon}
-              UnResigned={UnResigned}
-              // setCount={setCount}
-              />
-            </div>}
+            {isWon && (
+              <div
+                className={`absolute border-none top-0 right-0 opacity-80 h-full `}
+              >
+                <Dialog
+                  isWon={isWon}
+                  body={winner}
+                  resigningState={{ setResigned: resigningState.setResigned }}
+                  playersState={{ setPlayer: playersState.setPlayer }}
+                  player={user}
+                  setStartGame={setStartGame}
+                  setIsMountAnimation={setIsMountAnimation}
+                  setListCalledNumber={setListCalledNumber}
+                  // setWon={setWon}
+                  UnResigned={UnResigned}
+                  // setCount={setCount}
+                />
+              </div>
+            )}
             <div className={`text-8xl pixel-font`} style={{ color: color }}>
               {newNumber ? newNumber : "#"}
             </div>
-            <div className={`relative flex justify-center flex-col items-center`}>
+            <div
+              className={`relative flex justify-center flex-col items-center`}
+            >
               <div
                 className={`text-clip  text-2xl pixel-font w-fit`}
                 style={{ color: color }}
@@ -187,7 +192,6 @@ export default function GamePlay({
                 {user.player}
               </div>
               <div id="table">
-              
                 <div className={`p-3 w-fit`}>
                   {tables?.map((items, index) => {
                     return (
@@ -215,45 +219,36 @@ export default function GamePlay({
             </div>
             <Stack direction="row" spacing={2}>
               <div className="border-2 border-red-500 rounded-full">
-
-                <IconButton
-
-                  color="error"
-                  onClick={() => UnResigned()}
-                >
+                <IconButton color="error" onClick={() => UnResigned()}>
                   <KeyboardReturnIcon />
-                </IconButton >
+                </IconButton>
               </div>
 
-
               {!(playersList[0]?.id != socket.id) && (
-                  <Button
-                    disabled={
-                      isWon ||
-                      callNumberClick ||
-                      [...playersList][0]?.id != socket.id
-                    }
-                    variant="contained"
-                    className={`bg-blue-500 
+                <Button
+                  disabled={
+                    isWon ||
+                    callNumberClick ||
+                    [...playersList][0]?.id != socket.id
+                  }
+                  variant="contained"
+                  className={`bg-blue-500 
                             `}
-                    onClick={() => {
-                      callANumber();
-                    }}
-                  >
-                    <a>Call Number</a>
-                  </Button>
-                  
-                )}
-                
+                  onClick={() => {
+                    callANumber();
+                  }}
+                >
+                  <a>Call Number</a>
+                </Button>
+              )}
             </Stack>
-             
           </>
         ) : (
           <>
             <List
               sx={{ bgcolor: "background.paper" }}
               id="list"
-                className="md:max-w-[800px]"
+              className="md:max-w-[800px]"
             >
               <ListItem className="flex flex-col items-center">
                 {/* <ListItemText
@@ -261,55 +256,56 @@ export default function GamePlay({
                   secondary={"welcome to room " + room_id}
                 /> */}
                 <div className="sm:text-xl md:text-2xl text-lg text-center mb-4">
-
                   {/* <div className="block mb-2 italic font-bold">Hello lotter <b className="bg-blue-200 text-blue-600 p-1 rounded-md">{user.player}</b></div> */}
-                  <div className="block ">Room <mark 
-                      className="bg-yellow-200 text-yellow-600 p-1 rounded-md"
-                    >
+                  <div className="block ">
+                    Room{" "}
+                    <mark className="bg-yellow-200 text-yellow-600 p-1 rounded-md">
                       {room_id}
-                    </mark></div>
+                    </mark>
+                  </div>
                 </div>
               </ListItem>
-              <ListItem> <ul className="flex gap-2 flex-wrap justify-center ">
-
-                {playersList.map((p, i) => (
-                  // <ListItemAvatar>
-                  //   {/* <Avatar>
-                  //     <ImageIcon />
-                  //   </Avatar> */}
-                  //    <div className="block mb-2 italic font-bold"><b className="bg-blue-200 text-blue-600 p-1 rounded-md">{user.player}</b></div>
-                  // </ListItemAvatar>
-                  // <ListItemText primary={p.player} />
-                    user.player == p.player ?
-                  <li key={i} className="py-1">
-                    
-                    <div className="block mb-2 italic font-bold">
-                      <b className="bg-orange-200 text-orange-600 py-2 px-3 rounded-full text-md sm:text-xl">
-                        {p.player}
-                      </b>
-                      </div>
-                  </li>
-                  :
-                   <li key={i} className="py-1">
-                    <div className="block mb-2 italic font-bold"><b className="bg-blue-200 text-blue-600 py-2 px-3 rounded-full text-md sm:text-xl">{p.player}</b></div>
-                  </li>
-                ))}
-              </ul>
+              <ListItem>
+                {" "}
+                <ul className="flex gap-2 flex-wrap justify-center ">
+                  {playersList.map((p, i) =>
+                    // <ListItemAvatar>
+                    //   {/* <Avatar>
+                    //     <ImageIcon />
+                    //   </Avatar> */}
+                    //    <div className="block mb-2 italic font-bold"><b className="bg-blue-200 text-blue-600 p-1 rounded-md">{user.player}</b></div>
+                    // </ListItemAvatar>
+                    // <ListItemText primary={p.player} />
+                    user.player == p.player ? (
+                      <li key={i} className="py-1">
+                        <div className="block mb-2 italic font-bold">
+                          <b className="bg-orange-200 text-orange-600 py-2 px-3 rounded-full text-md sm:text-xl">
+                            {p.player}
+                          </b>
+                        </div>
+                      </li>
+                    ) : (
+                      <li key={i} className="py-1">
+                        <div className="block mb-2 italic font-bold">
+                          <b className="bg-blue-200 text-blue-600 py-2 px-3 rounded-full text-md sm:text-xl">
+                            {p.player}
+                          </b>
+                        </div>
+                      </li>
+                    )
+                  )}
+                </ul>
               </ListItem>
             </List>
             <Stack direction="row" spacing={2}>
-
-
               <div className="bg-red-400 text-red-300 p-1 rounded-full">
-
                 <IconButton
-
                   // color="error"
-                 
+
                   onClick={() => UnResigned()}
                 >
                   <KeyboardReturnIcon />
-                </IconButton >
+                </IconButton>
               </div>
 
               {[...playersList][0]?.id == socket.id ? (
@@ -323,16 +319,13 @@ export default function GamePlay({
                 >
                   <a>START!</a>
                 </Button>
-                
               ) : (
                 <></>
               )}
-              
             </Stack>
           </>
-        )
-        }
-      </div >
+        )}
+      </div>
     </>
   );
 }

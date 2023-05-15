@@ -7,11 +7,9 @@ import * as React from "react";
 import configColors from "../utils/configuration/colors.json";
 import BackgroundAnimation from "../components/Animations/BackgroundAnimation";
 
+import { SocketTemplate } from "../store/socketStore";
 
-import {SocketTemplate} from "../store/socketStore";
-
-const pjson = require('../package.json');
-
+const pjson = require("../package.json");
 
 export default function Home() {
   const [isResigned, setResigned] = React.useState(false);
@@ -31,7 +29,10 @@ export default function Home() {
             name="zalo-platform-site-verification"
             content="Rjkk4P-b22TAXfC8pAy0LZIikWlOqsnJDp8"
           />
-          <meta name="keywords" content="lottto, Lottto, Lottto next app, next-app lotto, lotto js" />
+          <meta
+            name="keywords"
+            content="lottto, Lottto, Lottto next app, next-app lotto, lotto js"
+          />
           <meta name="description" content="Lottto - the bingo game" />
           <link rel="icon" href="/favicon.ico" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -48,17 +49,17 @@ export default function Home() {
 
         <>
           {!isResigned ? (
-            <InputName 
-              playersState={{setPlayer}}
-              resigningState={{setResigned}} 
-              colors={colors} 
+            <InputName
+              playersState={{ setPlayer }}
+              resigningState={{ setResigned }}
+              colors={colors}
             />
           ) : (
             <>
               <GamePlay
-                playersState={{setPlayer}}
-                resigningState={{setResigned}} 
-                setIsMountAnimation={setIsMountAnimation }
+                playersState={{ setPlayer }}
+                resigningState={{ setResigned }}
+                setIsMountAnimation={setIsMountAnimation}
                 user={player}
                 room_id={player.room_id}
                 color={colors[Math.floor(Math.random() * 9)]}
@@ -67,9 +68,9 @@ export default function Home() {
           )}
         </>
       </div>
-       <div className="fixed bottom-0 right-0 p-3 text-center text-gray-400">
-          Lottto.io version {pjson.version} | By Thomas Tang
-        </div>
+      <div className="fixed bottom-0 right-0 p-3 text-center text-gray-400">
+        Lottto.io version {pjson.version} | By Thomas Tang
+      </div>
       {isMountAnimation && <BackgroundAnimation />}
     </SocketTemplate>
   );
