@@ -172,7 +172,12 @@ animation-delay: 1.6s;
 @media screen and (max-width: 768px){
   .animate-frame {
     left: -100%;
+    scale: 0.5;
   }
+
+    .animate-frame > div {
+      scale: 0.7;
+    }
 }
 
 @media screen and (max-width: 400px) {
@@ -180,4 +185,7 @@ animation-delay: 1.6s;
   top:-20%;
     left: -200%;
   }
+    animate-frame>div {
+      scale: 0.5;
+    }
 }
