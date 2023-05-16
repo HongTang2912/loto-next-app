@@ -97,15 +97,12 @@ animation-delay: 1.6s;
 
 @keyframes fadingEffect {
   to {
-    top: 300vh;
+    will-change: transform;
+    transform: translateY(300vh);
   }
 }
 
-@keyframes blobing {
-  to {
-    border-radius: 64% 23% 64% 13% / 63% 84% 3% 91%;
-  }
-}
+
 
 @keyframes zoomBig {
   0% {
@@ -129,6 +126,7 @@ animation-delay: 1.6s;
  
   100% {
     opacity: 1;
+    
   transform: scale($beforeScale, $beforeScale);
   -webkit-transform: scale($beforeScale, $beforeScale);
     -moz-transform: scale($beforeScale, $beforeScale);
