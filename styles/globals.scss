@@ -169,23 +169,23 @@ animation-delay: 1.6s;
 
 
 
-@media screen and (max-width: 768px){
-  .animate-frame {
-    left: -100%;
-    scale: 0.5;
-  }
+// @media screen and (max-width: 768px){
+//   .animate-frame {
+//     left: -100%;
+//     scale: 0.5;
+//   }
 
-    .animate-frame > div {
-      scale: 0.7;
-    }
-}
+//     .circle-dot > div {
+//       scale: 0.7;
+//     }
+// }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 768px) {
 .animate-frame {
   top:-20%;
-    left: -200%;
+    left: -150%;
   }
-    .animate-frame>div {
-      scale: 0.5;
+  .circle-dot > span {
+      transform: scale(0.6)
     }
 }
