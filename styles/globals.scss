@@ -33,18 +33,19 @@ a {
   }
 }
 
-@media screen and (max-width: 400px) {
+// @media screen and (max-width: 400px) {
   
-  #table {
-    transform: scale(1);
-    width: 100vw;
-  }
-}
+//   #table {
+//     transform: scale(1);
+//     width: 100vw;
+//   }
+// }
 
 .animate-frame {
-  transform: rotate(-45deg);
-  margin-left: -35rem;
-  margin-top: -35rem;
+  // transform: ;
+  left: -50%;
+  top: -50%;
+  transform: translate(0, 0) rotate(-45deg);
 }
 
 .circle-dot {
@@ -170,10 +171,13 @@ animation-delay: 1.6s;
 
 @media screen and (max-width: 768px){
   .animate-frame {
-    margin-top: -50rem;
+    left: -100%;
   }
 }
 
 @media screen and (max-width: 400px) {
- 
+.animate-frame {
+  top:-20%;
+    left: -200%;
+  }
 }
