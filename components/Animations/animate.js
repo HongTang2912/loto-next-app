@@ -19,7 +19,7 @@ export default function NumberFloating({ number, mainColor, blobStyle }) {
             backgroundColor: mainColor,
             height: streakSize,
             width: streakSize,
-            left: `${Math.floor(Math.random() * 60) + 20}%`,
+            left: `${Math.floor(Math.random() * 40) + 30}%`,
           }}
           className={`absolute rounded-full fade`}
         ></span>
