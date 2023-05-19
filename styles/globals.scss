@@ -141,21 +141,18 @@ animation-delay: 1.6s;
   0% {
     background: black;
     display: block;
-    height: 0;
     top: 100%;
-    opacity: 0;
+    opacity: 0.8;
   }
  
-  80% {
-  background: black;
+  // 80% {
+  // background: black;
 
-    height: 80%;
-    opacity: 0.6;
-  }
+  //   opacity: 0.6;
+  // }
 
   100% {
     background: black;
-    height: 0;
     top: 0;
     opacity: 0;
   }
