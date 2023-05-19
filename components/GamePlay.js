@@ -1,22 +1,20 @@
 import { useState, useEffect, useRef } from "react";
 
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
-import Avatar from '@mui/material/Avatar';
-import ImageIcon from '@mui/icons-material/Image';
-import Stack from '@mui/material/Stack';
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
+import Avatar from "@mui/material/Avatar";
+import ImageIcon from "@mui/icons-material/Image";
+import Stack from "@mui/material/Stack";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
-import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
-import {SiOpenmined} from "react-icons/si"
-
+import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
+import { SiOpenmined } from "react-icons/si";
 
 import Dialog from "/utils/WinnerPopup";
 
-
-import { SocketContext} from '../store/socketStore';
+import { SocketContext } from "../store/socketStore";
 import { useContext } from "react";
 
 export default function GamePlay({
@@ -25,7 +23,7 @@ export default function GamePlay({
   color,
   setIsMountAnimation,
   resigningState,
-  playersState
+  playersState,
 }) {
   const [winner, setWinner] = useState("");
   const [isWon, setWon] = useState(false);
@@ -40,11 +38,11 @@ export default function GamePlay({
 
   const LottoTable = useRef();
 
-  const {socket} = useContext(SocketContext);
-  
+  const { socket } = useContext(SocketContext);
 
   const UnResigned = () => {
     socket.emit("remove-user", { id: socket.id, room_id });
+    setIsMountAnimation(true);
     resigningState.setResigned(false);
     // window.location.reload();
   };
@@ -52,13 +50,10 @@ export default function GamePlay({
   // Start game function
   const startTheGame = () => {
     // Dispatch the "start-game" emmition to socket.io server
-    socket.emit(
-      "start-game",
-      {
-        players: playersList,
-        room: room_id,
-      }
-    );
+    socket.emit("start-game", {
+      players: playersList,
+      room: room_id,
+    });
   };
 
   const callANumber = () => {
@@ -77,50 +72,48 @@ export default function GamePlay({
 
   // Click to select the number which has appeared on the called numbers array
   const handleClickNumber = (num) => {
-    if(!isWon){
-    let element = LottoTable.current.querySelector(`div div#sub-table-${num}`);
-   
-    if (listCalledNumber.includes(num) && element) {
-      element.style.animationName = "zoomBig";
-      element.style.animationDuration = "0.5s";
-      element.style.animatopnTimingFunction = "linear";
-      element.style.backgroundColor = color;
-      element.style.color = "#fff";
-      element.id = "bingo";
-      const audio  = new Audio('../media/audio/pop-thock.mp3');
-      audio.play();
-      const rowNumbers = Array.prototype.map.call(
-        element.parentNode.childNodes,
-        (ele) => {
-          if (ele.id === "bingo") {
-            
-            return ele.innerHTML;
-          }
-          
-        }
-      );
-      const isBingo = Array.prototype.every.call(
-        element.parentNode.childNodes,
-        (ele) => {
-          if (ele.id === "bingo") {
-
-            return true;
-          }
-          return false;
-        }
+    if (!isWon) {
+      let element = LottoTable.current.querySelector(
+        `div div#sub-table-${num}`
       );
 
-      if (isBingo) {
-        socket.emit("end-game", {winner: user.player, room_id, rowNumbers});
+      if (listCalledNumber.includes(num) && element) {
+        element.style.animationName = "zoomBig";
+        element.style.animationDuration = "0.5s";
+        element.style.animatopnTimingFunction = "linear";
+        element.style.backgroundColor = color;
+        element.style.color = "#fff";
+        element.id = "bingo";
+        const audio = new Audio("../media/audio/pop-thock.mp3");
+        audio.play();
+        const rowNumbers = Array.prototype.map.call(
+          element.parentNode.childNodes,
+          (ele) => {
+            if (ele.id === "bingo") {
+              return ele.innerHTML;
+            }
+          }
+        );
+        const isBingo = Array.prototype.every.call(
+          element.parentNode.childNodes,
+          (ele) => {
+            if (ele.id === "bingo") {
+              return true;
+            }
+            return false;
+          }
+        );
+
+        if (isBingo) {
+          socket.emit("end-game", { winner: user.player, room_id, rowNumbers });
+        }
       }
     }
-   
-  }
   };
 
   // Dispatch an action when socket's instances were changed
   useEffect(() => {
-    try{
+    try {
       socket.on("new-user", (user) => {
         setPlayersList(user !== null ? [...user] : []);
       });
@@ -132,7 +125,7 @@ export default function GamePlay({
         setStartGame(true);
         setIsMountAnimation(false);
         setCount(0);
-        setNewNumber(0)
+        setNewNumber(0);
       });
       socket.on("get-number", (number, count) => {
         setNewNumber(number[count]);
@@ -142,11 +135,9 @@ export default function GamePlay({
       socket.on("the-winner", (winnerArray) => {
         setWon(true);
         // setEnd(true);
-        setWinner(
-          winnerArray
-        );
+        setWinner(winnerArray);
       });
-    } catch(err ) {
+    } catch (err) {
       console.log(err);
     }
   }, [socket]);
@@ -302,7 +293,10 @@ export default function GamePlay({
                 <IconButton
                   // color="error"
 
-                  onClick={() => UnResigned()}
+                  onClick={() => {
+                    
+                    UnResigned();
+                  }}
                 >
                   <KeyboardReturnIcon />
                 </IconButton>
