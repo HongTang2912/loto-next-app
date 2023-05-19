@@ -7,7 +7,7 @@ export default function animate() {
     <div>
       <NumberFloating
         number="H"
-        mainColor="#000"
+        mainColor="#fad"
         blobStyle={blobs[0]}
       />
     </div>

@@ -68,16 +68,16 @@ a {
 }
 
 .fade {
-  animation:  fadeOut 1.2s infinite linear;
+  animation:  fadeOut 1.5s infinite linear;
 }
 
-.fade-delay-1 {
-animation-delay: 0.8s;
-}
+// .fade-delay-1 {
+// animation-delay: 0.8s;
+// }
 
-.fade-delay-2 {
-animation-delay: 1.6s;
-}
+// .fade-delay-2 {
+// animation-delay: 1.6s;
+// }
 
 .noselect {
   -webkit-touch-callout: none;
@@ -139,7 +139,6 @@ animation-delay: 1.6s;
 
 @keyframes fadeOut {
   0% {
-    background: black;
     display: block;
     top: 100%;
     opacity: 0.8;
@@ -152,7 +151,6 @@ animation-delay: 1.6s;
   // }
 
   100% {
-    background: black;
     top: 0;
     opacity: 0;
   }

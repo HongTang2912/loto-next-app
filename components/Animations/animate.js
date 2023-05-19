@@ -11,28 +11,32 @@ export default function NumberFloating({ number, mainColor, blobStyle }) {
   const intervalGenerator = (cb) => {
      const streakSize = sizes[Math.floor(Math.random() * (sizes.length - 1))];
     cb(
-      <span
-        style={{
-          borderColor: mainColor,
-          height: streakSize,
-          width: streakSize,
-          left: `${Math.floor(Math.random() * 100)}%`,
-        }}
-        className={`absolute  border-4 rounded-full fade`}
-      ></span>
+      <div
+        
+        >
+        <span
+          style={{
+            backgroundColor: mainColor,
+            height: streakSize,
+            width: streakSize,
+            left: `${Math.floor(Math.random() * 60) + 20}%`,
+          }}
+          className={`absolute rounded-full fade`}
+        ></span>
+      </div>
     );
        
   };
 
   useEffect(() => {
-    setInterval(() => intervalGenerator(setStreak1), 1200);
+    setInterval(() => intervalGenerator(setStreak1), 1500);
     setTimeout(() => {
-      setInterval(() => intervalGenerator(setStreak2), 1200);
+      setInterval(() => intervalGenerator(setStreak2), 1500);
 
-    },400)
+    },500)
     setTimeout(() => {
-      setInterval(() => intervalGenerator(setStreak3), 1200);
-    }, 800);
+      setInterval(() => intervalGenerator(setStreak3), 1500);
+    }, 1000);
   }, []);
 
   return (
@@ -40,7 +44,7 @@ export default function NumberFloating({ number, mainColor, blobStyle }) {
       className="inline-flex flex-col gap-5 scaler"
       style={{ color: mainColor }}
     >
-      <span className="relative flex h-32 justify-evenly " ref={Behind}>
+      <span className="relative flex h-52 justify-evenly " ref={Behind}>
         {/* <div>
           <span
             style={{ borderColor: mainColor, height: size, width: size, left:'80%' }}
