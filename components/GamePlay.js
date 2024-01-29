@@ -39,6 +39,7 @@ export default function GamePlay({
   const LottoTable = useRef();
 
   const { socket } = useContext(SocketContext);
+  
 
   function fillMissingNumbers(arr) {
     if (!Array.isArray(arr) || arr.length === 0) {
@@ -49,20 +50,16 @@ export default function GamePlay({
       number > 9 ? parseInt(number.toString()[0]) : 0
     );
     console.log(currentArr);
+    console.log(newArr);
     const filledArray = [];
     for (let i = 0; i <= 8; i++) {
-      if (newArr.includes(i))
-        filledArray.push(
-          arr[
-            arr.findIndex((number) =>
-              number > 9 ? number.toString()[0] : number
-            )
-          ]
-        );
-      else filledArray.push(undefined);
+      if (newArr.includes(i)) {
+        filledArray.push(currentArr[newArr.indexOf(i)]);
+      } else filledArray.push(undefined);
     }
     if (newArr[4] == 9) {
-      filledArray.push(newArr[4]);
+      filledArray.pop();
+      filledArray.push(90);
     }
 
     return filledArray;
@@ -114,15 +111,15 @@ export default function GamePlay({
         element.id = "bingo";
         const audio = new Audio("../media/audio/pop-thock.mp3");
         audio.play();
-        const rowNumbers = Array.prototype.map.call(
-          element.parentNode.childNodes,
-          (ele) => {
-            if (ele.id === "bingo") {
+        const rowNumbers = Array.prototype.map
+          .call(element.parentNode.childNodes, (ele) => {
+            if (ele.id === "bingo" && ele.innerHTML != "  ") {
               return ele.innerHTML;
             }
-          }
-        );
-        const isBingo = Array.prototype.every.call(
+          })
+          .filter((number) => Number.isInteger(parseInt(number)));
+          console.log(rowNumbers);
+        const isBingo = Array.prototype.filter.call(
           element.parentNode.childNodes,
           (ele) => {
             if (ele.id === "bingo") {
@@ -132,8 +129,9 @@ export default function GamePlay({
           }
         );
 
-        if (isBingo) {
+        if (isBingo.length == 5) {
           socket.emit("end-game", { winner: user.player, room_id, rowNumbers });
+          
         }
       }
     }
@@ -163,12 +161,15 @@ export default function GamePlay({
       socket.on("the-winner", (winnerArray) => {
         setWon(true);
         // setEnd(true);
+        console.log(winnerArray);
         setWinner(winnerArray);
       });
     } catch (err) {
       console.log(err);
     }
   }, [socket]);
+
+  
 
   return (
     <>
@@ -224,7 +225,7 @@ export default function GamePlay({
                               <div
                                 onClick={() => handleClickNumber(subItems)}
                                 key={sIndex}
-                                className="noselect w-16 p-3 m-1 text-4xl font-semibold text-center rounded-full "
+                                className="noselect border-2 w-12 py-3 text-xl font-semibold text-center flex justify-center items-center  "
                                 id={`sub-table-${subItems}`}
                               >
                                 &nbsp;&nbsp;
@@ -235,7 +236,7 @@ export default function GamePlay({
                               <div
                                 onClick={() => handleClickNumber(subItems)}
                                 key={sIndex}
-                                className="noselect w-16 p-3 m-1 text-4xl font-semibold text-center rounded-full "
+                                className="noselect border-2 w-12 py-3 text-xl font-semibold text-center flex justify-center items-center"
                                 id={`sub-table-${subItems}`}
                               >
                                 {subItems}
