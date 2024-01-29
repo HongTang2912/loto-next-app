@@ -10,7 +10,6 @@ const SocketTemplate = ({children}) => {
     useEffect(() => {
        
         setSocket(io.connect(url, {
-            secure: true,
             rejectUnauthorized: false,
             transports: ["websocket", "polling", "flashsocket"],
         }))

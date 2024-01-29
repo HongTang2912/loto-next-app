@@ -40,6 +40,34 @@ export default function GamePlay({
 
   const { socket } = useContext(SocketContext);
 
+  function fillMissingNumbers(arr) {
+    if (!Array.isArray(arr) || arr.length === 0) {
+      return "Input is not a valid array.";
+    }
+    const currentArr = [...arr].sort((a, b) => a - b);
+    const newArr = currentArr.map((number) =>
+      number > 9 ? parseInt(number.toString()[0]) : 0
+    );
+    console.log(currentArr);
+    const filledArray = [];
+    for (let i = 0; i <= 8; i++) {
+      if (newArr.includes(i))
+        filledArray.push(
+          arr[
+            arr.findIndex((number) =>
+              number > 9 ? number.toString()[0] : number
+            )
+          ]
+        );
+      else filledArray.push(undefined);
+    }
+    if (newArr[4] == 9) {
+      filledArray.push(newArr[4]);
+    }
+
+    return filledArray;
+  }
+
   const UnResigned = () => {
     socket.emit("remove-user", { id: socket.id, room_id });
     setIsMountAnimation(true);
@@ -119,7 +147,7 @@ export default function GamePlay({
       });
       socket.on("new-game", (playerSlot) => {
         if (playerSlot.table.length != 0) {
-          setTables(playerSlot.table);
+          setTables(playerSlot.table.map((row) => fillMissingNumbers(row)));
         }
         setWon(false);
         setStartGame(true);
@@ -191,16 +219,29 @@ export default function GamePlay({
                         key={index}
                       >
                         {items.map((subItems, sIndex) => {
-                          return (
-                            <div
-                              onClick={() => handleClickNumber(subItems)}
-                              key={sIndex}
-                              className="noselect w-16 p-3 m-1 text-4xl font-semibold text-center rounded-full "
-                              id={`sub-table-${subItems}`}
-                            >
-                              {subItems}
-                            </div>
-                          );
+                          if (!subItems) {
+                            return (
+                              <div
+                                onClick={() => handleClickNumber(subItems)}
+                                key={sIndex}
+                                className="noselect w-16 p-3 m-1 text-4xl font-semibold text-center rounded-full "
+                                id={`sub-table-${subItems}`}
+                              >
+                                &nbsp;&nbsp;
+                              </div>
+                            );
+                          } else {
+                            return (
+                              <div
+                                onClick={() => handleClickNumber(subItems)}
+                                key={sIndex}
+                                className="noselect w-16 p-3 m-1 text-4xl font-semibold text-center rounded-full "
+                                id={`sub-table-${subItems}`}
+                              >
+                                {subItems}
+                              </div>
+                            );
+                          }
                         })}
                       </div>
                     );
@@ -294,7 +335,6 @@ export default function GamePlay({
                   // color="error"
 
                   onClick={() => {
-                    
                     UnResigned();
                   }}
                 >
