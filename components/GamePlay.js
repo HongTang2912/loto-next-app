@@ -39,7 +39,6 @@ export default function GamePlay({
   const LottoTable = useRef();
 
   const { socket } = useContext(SocketContext);
-  
 
   function fillMissingNumbers(arr) {
     if (!Array.isArray(arr) || arr.length === 0) {
@@ -118,7 +117,7 @@ export default function GamePlay({
             }
           })
           .filter((number) => Number.isInteger(parseInt(number)));
-          // console.log(rowNumbers);
+        // console.log(rowNumbers);
         const isBingo = Array.prototype.filter.call(
           element.parentNode.childNodes,
           (ele) => {
@@ -131,7 +130,6 @@ export default function GamePlay({
 
         if (isBingo.length == 5) {
           socket.emit("end-game", { winner: user.player, room_id, rowNumbers });
-          
         }
       }
     }
@@ -168,8 +166,6 @@ export default function GamePlay({
       console.log(err);
     }
   }, [socket]);
-
-  
 
   return (
     <>
@@ -225,7 +221,7 @@ export default function GamePlay({
                               <div
                                 onClick={() => handleClickNumber(subItems)}
                                 key={sIndex}
-                                className="noselect border-2 w-8 sm:w-8 md:w-10 py-3 text-lg sm:text-xl font-semibold text-center flex justify-center items-center  "
+                                className="noselect border-2 w-10 md:w-12 lg:w-16 py-3 text-lg sm:text-xl font-semibold text-center flex justify-center items-center  "
                                 id={`sub-table-${subItems}`}
                               >
                                 &nbsp;&nbsp;
@@ -236,7 +232,7 @@ export default function GamePlay({
                               <div
                                 onClick={() => handleClickNumber(subItems)}
                                 key={sIndex}
-                                className="noselect border-2 w-8 sm:w-8 md:w-10 py-3 text-lg sm:text-xl font-semibold text-center flex justify-center items-center"
+                                className="noselect border-2 w-10 md:w-12 lg:w-16 py-3 text-lg sm:text-xl font-semibold text-center flex justify-center items-center"
                                 id={`sub-table-${subItems}`}
                               >
                                 {subItems}
